@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Budget Page Tests Renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "justifyContent": "center",
+      "padding": 20,
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "fontSize": 22,
+      }
+    }
+  >
+    NAME
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 36,
+        },
+        Object {
+          "color": "green",
+        },
+      ]
+    }
+  >
+    $
+    1
+  </Text>
+  <Text
+    style={
+      Object {
+        "fontSize": 16,
+      }
+    }
+  >
+    / $
+    1
+  </Text>
+</View>
+`;
