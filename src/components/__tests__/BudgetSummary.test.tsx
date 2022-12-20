@@ -2,7 +2,7 @@ import renderer from 'react-test-renderer';
 import BudgetSummary from "../BudgetSummary";
 import { Text } from 'react-native';
 
-describe("Budget Page Tests", () => {
+describe("Budget Summary Tests", () => {
 
     it("Renders correctly", () => {
         const tree = renderer

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Budget Summary Tests Renders correctly 1`] = `
+exports[`Budget Summaries Tests Renders correctly 1`] = `
 <View
   style={
     Object {

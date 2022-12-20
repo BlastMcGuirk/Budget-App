@@ -4,97 +4,107 @@ exports[`Budget Page Tests Renders correctly 1`] = `
 <View
   style={
     Object {
-      "flexDirection": "row",
+      "alignItems": "center",
+      "backgroundColor": "#fff",
+      "flex": 1,
     }
   }
 >
   <View
     style={
       Object {
-        "alignItems": "center",
-        "justifyContent": "center",
-        "padding": 20,
+        "flexDirection": "row",
       }
     }
   >
-    <Text
+    <View
       style={
         Object {
-          "fontSize": 22,
+          "alignItems": "center",
+          "justifyContent": "center",
+          "padding": 20,
         }
       }
     >
-      NEEDS
-    </Text>
-    <Text
-      style={
-        Array [
+      <Text
+        style={
           Object {
-            "fontSize": 36,
-          },
+            "fontSize": 22,
+          }
+        }
+      >
+        NEEDS
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 36,
+            },
+            Object {
+              "color": "green",
+            },
+          ]
+        }
+      >
+        $
+        1234.56
+      </Text>
+      <Text
+        style={
           Object {
-            "color": "green",
-          },
-        ]
-      }
-    >
-      $
-      1234.56
-    </Text>
-    <Text
+            "fontSize": 16,
+          }
+        }
+      >
+        / $
+        1500
+      </Text>
+    </View>
+    <View
       style={
         Object {
-          "fontSize": 16,
+          "alignItems": "center",
+          "justifyContent": "center",
+          "padding": 20,
         }
       }
     >
-      / $
-      1500
-    </Text>
-  </View>
-  <View
-    style={
-      Object {
-        "alignItems": "center",
-        "justifyContent": "center",
-        "padding": 20,
-      }
-    }
-  >
-    <Text
-      style={
-        Object {
-          "fontSize": 22,
-        }
-      }
-    >
-      WANTS
-    </Text>
-    <Text
-      style={
-        Array [
+      <Text
+        style={
           Object {
-            "fontSize": 36,
-          },
-          Object {
-            "color": "red",
-          },
-        ]
-      }
-    >
-      $
-      -123.45
-    </Text>
-    <Text
-      style={
-        Object {
-          "fontSize": 16,
+            "fontSize": 22,
+          }
         }
-      }
-    >
-      / $
-      500
-    </Text>
+      >
+        WANTS
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 36,
+            },
+            Object {
+              "color": "red",
+            },
+          ]
+        }
+      >
+        $
+        -123.45
+      </Text>
+      <Text
+        style={
+          Object {
+            "fontSize": 16,
+          }
+        }
+      >
+        / $
+        500
+      </Text>
+    </View>
   </View>
 </View>
 `;
