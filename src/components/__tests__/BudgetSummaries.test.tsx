@@ -1,11 +1,11 @@
 import renderer from 'react-test-renderer';
-import BudgetSummary from "../BudgetSummary";
+import BudgetSummaries from '../BudgetSummaries';
 
 describe("Budget Summaries Tests", () => {
 
     it("Renders correctly", () => {
         const tree = renderer
-            .create(<BudgetSummary budget='name' remaining={1} total={1}/>)
+            .create(<BudgetSummaries />)
             .toJSON();
         expect(tree).toMatchSnapshot();
     });

@@ -13,7 +13,7 @@ exports[`Budget Summary Tests Renders correctly 1`] = `
   <Text
     style={
       Object {
-        "fontSize": 22,
+        "fontSize": 24,
       }
     }
   >

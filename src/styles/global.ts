@@ -1,10 +1,12 @@
 import { StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+export const FontSizes = StyleSheet.create({
+  XL: { fontSize: 36 },
+  L: { fontSize: 24 },
+  M: { fontSize: 20 },
+  S: { fontSize: 16 }
 });
+
+export const Layouts = StyleSheet.create({
+  row: { display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }
+})

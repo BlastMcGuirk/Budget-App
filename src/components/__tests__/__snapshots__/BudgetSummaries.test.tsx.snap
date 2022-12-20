@@ -4,45 +4,99 @@ exports[`Budget Summaries Tests Renders correctly 1`] = `
 <View
   style={
     Object {
-      "alignItems": "center",
-      "justifyContent": "center",
-      "padding": 20,
+      "display": "flex",
+      "flexDirection": "row",
+      "justifyContent": "space-between",
     }
   }
 >
-  <Text
+  <View
     style={
       Object {
-        "fontSize": 22,
+        "alignItems": "center",
+        "justifyContent": "center",
+        "padding": 20,
       }
     }
   >
-    NAME
-  </Text>
-  <Text
-    style={
-      Array [
+    <Text
+      style={
         Object {
-          "fontSize": 36,
-        },
+          "fontSize": 24,
+        }
+      }
+    >
+      NEEDS
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 36,
+          },
+          Object {
+            "color": "green",
+          },
+        ]
+      }
+    >
+      $
+      1234.56
+    </Text>
+    <Text
+      style={
         Object {
-          "color": "green",
-        },
-      ]
-    }
-  >
-    $
-    1
-  </Text>
-  <Text
+          "fontSize": 16,
+        }
+      }
+    >
+      / $
+      1500
+    </Text>
+  </View>
+  <View
     style={
       Object {
-        "fontSize": 16,
+        "alignItems": "center",
+        "justifyContent": "center",
+        "padding": 20,
       }
     }
   >
-    / $
-    1
-  </Text>
+    <Text
+      style={
+        Object {
+          "fontSize": 24,
+        }
+      }
+    >
+      WANTS
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 36,
+          },
+          Object {
+            "color": "red",
+          },
+        ]
+      }
+    >
+      $
+      -123.45
+    </Text>
+    <Text
+      style={
+        Object {
+          "fontSize": 16,
+        }
+      }
+    >
+      / $
+      500
+    </Text>
+  </View>
 </View>
 `;

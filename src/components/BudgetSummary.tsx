@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { FontSizes } from '../styles/global';
 
 interface BudgetSummaryProps {
     budget: string;
@@ -10,9 +11,9 @@ interface BudgetSummaryProps {
 export default function BudgetSummary(props: BudgetSummaryProps) {
     return (
         <View style={styles.container}>
-            <Text style={styles.budgetName}>{props.budget.toUpperCase()}</Text>
-            <Text style={[styles.remaining, props.remaining >= 0 ? styles.green : styles.red]}>${props.remaining}</Text>
-            <Text style={styles.total}>/ ${props.total}</Text>
+            <Text style={FontSizes.L}>{props.budget.toUpperCase()}</Text>
+            <Text style={[FontSizes.XL, props.remaining >= 0 ? styles.green : styles.red]}>${props.remaining}</Text>
+            <Text style={FontSizes.S}>/ ${props.total}</Text>
         </View>
     );
 }
@@ -23,20 +24,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 20
     },
-    budgetName: {
-        fontSize: 22
-    },
-    remaining: {
-        fontSize: 36
-    },
-    total: {
-        fontSize: 16
-    },
     green: {
         color: 'green'
     },
     red: {
         color: 'red'
     }
-  });
+});
   
