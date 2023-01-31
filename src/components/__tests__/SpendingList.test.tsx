@@ -19,8 +19,9 @@ describe("Spending List Tests", () => {
     ]
 
     it("Renders correctly", () => {
+        const onNav = jest.fn();
         const tree = renderer
-            .create(<SpendingList budget='name' items={dummyItems} />)
+            .create(<SpendingList budget='name' items={dummyItems} onNavigate={onNav} />)
             .toJSON();
         expect(tree).toMatchSnapshot();
     });

@@ -1,0 +1,156 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Budget Details Page Tests Renders correctly 1`] = `
+<RCTScrollView
+  contentContainerStyle={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#fff",
+      "flexGrow": 1,
+    }
+  }
+>
+  <View>
+    <View
+      style={
+        Object {
+          "borderBottomWidth": 2,
+          "width": "100%",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "justifyContent": "center",
+            "padding": 20,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontSize": 24,
+            }
+          }
+        >
+          NEEDS
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 36,
+              },
+              Object {
+                "color": "green",
+              },
+            ]
+          }
+        >
+          $
+          1234.56
+        </Text>
+        <Text
+          style={
+            Object {
+              "fontSize": 16,
+            }
+          }
+        >
+          / $
+          1500
+        </Text>
+      </View>
+      <Text
+        onPress={[Function]}
+        style={
+          Array [
+            Object {
+              "borderTopWidth": 1,
+              "paddingHorizontal": 16,
+              "paddingVertical": 8,
+            },
+            Object {
+              "fontSize": 16,
+            },
+          ]
+        }
+      >
+        New Entry...
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "borderBottomColor": "gray",
+          "borderBottomWidth": 1,
+          "padding": 16,
+          "width": "100%",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "baseline",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontSize": 24,
+            }
+          }
+        >
+          Rent
+        </Text>
+        <Text
+          style={
+            Object {
+              "fontSize": 24,
+            }
+          }
+        >
+          $
+          1757.25
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "baseline",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontSize": 16,
+            }
+          }
+        >
+          Bills
+        </Text>
+        <Text
+          style={
+            Object {
+              "fontSize": 16,
+            }
+          }
+        >
+          8/4/2023
+        </Text>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;

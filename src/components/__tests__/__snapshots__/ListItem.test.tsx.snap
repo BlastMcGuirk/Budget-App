@@ -7,12 +7,14 @@ exports[`List Item Tests Renders correctly with category 1`] = `
       "borderBottomColor": "gray",
       "borderBottomWidth": 1,
       "padding": 16,
+      "width": "100%",
     }
   }
 >
   <View
     style={
       Object {
+        "alignItems": "baseline",
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "space-between",
@@ -35,12 +37,14 @@ exports[`List Item Tests Renders correctly with category 1`] = `
         }
       }
     >
+      $
       12.34
     </Text>
   </View>
   <View
     style={
       Object {
+        "alignItems": "baseline",
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "space-between",
@@ -76,12 +80,14 @@ exports[`List Item Tests Renders correctly with category 2`] = `
       "borderBottomColor": "gray",
       "borderBottomWidth": 1,
       "padding": 16,
+      "width": "100%",
     }
   }
 >
   <View
     style={
       Object {
+        "alignItems": "baseline",
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "space-between",
@@ -104,12 +110,14 @@ exports[`List Item Tests Renders correctly with category 2`] = `
         }
       }
     >
+      $
       12.34
     </Text>
   </View>
   <View
     style={
       Object {
+        "alignItems": "baseline",
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "space-between",

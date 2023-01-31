@@ -4,6 +4,7 @@ exports[`Budget Summaries Tests Renders correctly 1`] = `
 <View
   style={
     Object {
+      "alignItems": "baseline",
       "display": "flex",
       "flexDirection": "row",
       "justifyContent": "space-between",

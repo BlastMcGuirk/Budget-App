@@ -8,5 +8,13 @@ export const FontSizes = StyleSheet.create({
 });
 
 export const Layouts = StyleSheet.create({
-  row: { display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }
+  row: { 
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'baseline' 
+  },
+  fullWidth: {
+    width: '100%'
+  }
 })

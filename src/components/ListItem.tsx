@@ -19,7 +19,7 @@ export default function ListItem(props: ListItemProps) {
         <View style={styles.container}>
             <View style={Layouts.row}>
                 <Text style={FontSizes.L}>{name}</Text>
-                <Text style={FontSizes.L}>{amount}</Text>
+                <Text style={FontSizes.L}>${amount.toFixed(2)}</Text>
             </View>
             <View style={Layouts.row}>
                 <Text style={FontSizes.S}>{category}</Text>
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     container: {
         padding: 16,
         borderBottomColor: 'gray',
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
+        width: '100%'
     },
 })

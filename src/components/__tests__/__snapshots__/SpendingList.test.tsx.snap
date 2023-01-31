@@ -18,15 +18,36 @@ exports[`Spending List Tests Renders correctly 1`] = `
       }
     }
   >
-    <Text
+    <View
       style={
         Object {
-          "fontSize": 24,
+          "alignItems": "baseline",
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
         }
       }
     >
-      name
-    </Text>
+      <Text
+        style={
+          Object {
+            "fontSize": 24,
+          }
+        }
+      >
+        name
+      </Text>
+      <Text
+        onPress={[Function]}
+        style={
+          Object {
+            "fontSize": 24,
+          }
+        }
+      >
+        + New
+      </Text>
+    </View>
   </View>
   <View
     style={
@@ -34,12 +55,14 @@ exports[`Spending List Tests Renders correctly 1`] = `
         "borderBottomColor": "gray",
         "borderBottomWidth": 1,
         "padding": 16,
+        "width": "100%",
       }
     }
   >
     <View
       style={
         Object {
+          "alignItems": "baseline",
           "display": "flex",
           "flexDirection": "row",
           "justifyContent": "space-between",
@@ -62,12 +85,14 @@ exports[`Spending List Tests Renders correctly 1`] = `
           }
         }
       >
+        $
         852.25
       </Text>
     </View>
     <View
       style={
         Object {
+          "alignItems": "baseline",
           "display": "flex",
           "flexDirection": "row",
           "justifyContent": "space-between",
@@ -100,12 +125,14 @@ exports[`Spending List Tests Renders correctly 1`] = `
         "borderBottomColor": "gray",
         "borderBottomWidth": 1,
         "padding": 16,
+        "width": "100%",
       }
     }
   >
     <View
       style={
         Object {
+          "alignItems": "baseline",
           "display": "flex",
           "flexDirection": "row",
           "justifyContent": "space-between",
@@ -128,12 +155,14 @@ exports[`Spending List Tests Renders correctly 1`] = `
           }
         }
       >
+        $
         130.44
       </Text>
     </View>
     <View
       style={
         Object {
+          "alignItems": "baseline",
           "display": "flex",
           "flexDirection": "row",
           "justifyContent": "space-between",
@@ -167,13 +196,14 @@ exports[`Spending List Tests Renders correctly 1`] = `
     }
   >
     <Text
+      onPress={[Function]}
       style={
         Object {
-          "fontSize": 16,
+          "fontSize": 20,
         }
       }
     >
-      New Entry...
+      See All
     </Text>
   </View>
 </View>
