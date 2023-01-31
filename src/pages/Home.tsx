@@ -1,11 +1,10 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { RootStackParamList } from '../App';
 import BudgetSummaries from '../components/BudgetSummaries';
 import { Item } from '../components/ListItem';
 import SpendingList from '../components/SpendingList';
-import { Layouts } from '../styles/global';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -98,11 +97,15 @@ export default function Home(props: Props) {
         props.navigation.navigate("BudgetDetails", {budget, items});
     }
 
+    const navigateToNew = function(budget: string) {
+        props.navigation.navigate("NewEntry", {budget, returnTo: 'Home', returnProps: undefined});
+    }
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <BudgetSummaries />
-            <SpendingList budget='Needs' items={dummyNeedsItems} onNavigate={navigateToDetails} />
-            <SpendingList budget='Wants' items={dummyWantsItems} onNavigate={navigateToDetails} />
+            <SpendingList budget='Needs' items={dummyNeedsItems} onNew={navigateToNew} onNavigate={navigateToDetails} />
+            <SpendingList budget='Wants' items={dummyWantsItems} onNew={navigateToNew} onNavigate={navigateToDetails} />
         </ScrollView>
     )
 }

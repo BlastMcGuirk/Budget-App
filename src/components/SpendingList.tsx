@@ -7,6 +7,7 @@ export interface SpendingListProps {
     budget: string;
     items: Item[];
     onNavigate: (budget: string, items: Item[]) => void;
+    onNew: (budget: string) => void;
 }
 
 export default function SpendingList(props: SpendingListProps) {
@@ -17,7 +18,7 @@ export default function SpendingList(props: SpendingListProps) {
                     <Text style={FontSizes.L}>{props.budget}</Text>
                     <Text
                         style={FontSizes.L} 
-                        onPress={() => props.onNavigate(props.budget, props.items)}
+                        onPress={() => props.onNew(props.budget)}
                     >
                         + New
                     </Text>
