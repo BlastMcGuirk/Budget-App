@@ -1,97 +1,37 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, StyleSheet, Text } from 'react-native';
 import { RootStackParamList } from '../App';
 import BudgetSummaries from '../components/BudgetSummaries';
-import { Item } from '../components/ListItem';
+import { Item } from '../database/db-table-item';
 import SpendingList from '../components/SpendingList';
+import { useDatabase } from '../database/db-service';
+import { Budget } from '../database/db-table-budget';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
-const dummyNeedsItems: Item[] = [
-    {
-        name: "Rent",
-        category: "Bills",
-        amount: 852.25,
-        date: "8/4/2022"
-    },
-    {
-        name: "Groceries",
-        category: "Groceries",
-        amount: 130.44,
-        date: "8/7/2022"
-    },
-    {
-        name: "Rent1",
-        category: "Bills",
-        amount: 852.25,
-        date: "8/4/2022"
-    },
-    {
-        name: "Rent2",
-        category: "Bills",
-        amount: 852.25,
-        date: "8/4/2022"
-    },
-    {
-        name: "Rent3",
-        category: "Bills",
-        amount: 852.25,
-        date: "8/4/2022"
-    },
-    {
-        name: "Rent4",
-        category: "Bills",
-        amount: 852.25,
-        date: "8/4/2022"
-    },
-    {
-        name: "Rent5",
-        category: "Bills",
-        amount: 852.25,
-        date: "8/4/2022"
-    },
-    {
-        name: "Rent6",
-        category: "Bills",
-        amount: 852.25,
-        date: "8/4/2022"
-    },
-    {
-        name: "Rent7",
-        category: "Bills",
-        amount: 852.25,
-        date: "8/4/2022"
-    },
-]
-
-const dummyWantsItems: Item[] = [
-    {
-        name: "Date Night",
-        amount: 56,
-        date: "8/12/2022"
-    },
-    {
-        name: "Rent3",
-        category: "Bills",
-        amount: 852.25,
-        date: "8/4/2022"
-    },
-    {
-        name: "Rent4",
-        category: "Bills",
-        amount: 852.25,
-        date: "8/4/2022"
-    },
-    {
-        name: "Rent5",
-        category: "Bills",
-        amount: 852.25,
-        date: "8/4/2022"
-    },
-]
-
 export default function Home(props: Props) {
+
+    const db = useDatabase();
+
+    const [month, setMonth] = useState(1);
+    const [year, setYear] = useState(2023);
+    const [loading, setLoading] = useState(true);
+    const [budgets, setBudgets] = useState<Budget[]>([]);
+    const [items, setItems] = useState<Item[]>([]);
+
+    useEffect(() => {
+        setLoading(true);
+        db.getAllBudgets().then(bs => {
+            setBudgets(bs);
+            bs.forEach(budget => {
+                db.getAllItems(budget.id, year.toString(), month.toString()).then(is => {
+                    setItems(is);
+                    setLoading(false);
+                })
+            })
+        });
+    }, [month, year])
 
     const navigateToDetails = function(budget: string, items: Item[]) {
         props.navigation.navigate("BudgetDetails", {budget, items});
@@ -103,9 +43,18 @@ export default function Home(props: Props) {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <BudgetSummaries />
-            <SpendingList budget='Needs' items={dummyNeedsItems} onNew={navigateToNew} onNavigate={navigateToDetails} />
-            <SpendingList budget='Wants' items={dummyWantsItems} onNew={navigateToNew} onNavigate={navigateToDetails} />
+            {loading && <Text>Loading...</Text>}
+            {!loading && <>
+                <BudgetSummaries />
+                {budgets.map(budget => {
+                    return <SpendingList 
+                    key={budget.id} 
+                    budget={budget.name} 
+                    items={items} 
+                    onNew={navigateToNew} 
+                    onNavigate={navigateToDetails} />
+                })}
+            </>}
         </ScrollView>
     )
 }

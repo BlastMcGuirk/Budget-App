@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { Item } from '../database/db-table-item';
 import { FontSizes, Layouts } from '../styles/global';
-import ListItem, { Item } from './ListItem';
+import ListItem from './ListItem';
 
 export interface SpendingListProps {
     budget: string;

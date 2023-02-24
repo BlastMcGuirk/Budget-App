@@ -1,20 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { Item } from '../database/db-table-item';
 import { FontSizes, Layouts } from '../styles/global';
-
-export interface Item {
-    name: string;
-    amount: number;
-    date: string;
-    category?: string;
-}
 
 export interface ListItemProps {
     item: Item
 }
 
 export default function ListItem(props: ListItemProps) {
-    const { name, amount, date, category } = props.item;
+    const { name, amount, month, day, category } = props.item;
     return (
         <View style={styles.container}>
             <View style={Layouts.row}>
@@ -23,7 +17,7 @@ export default function ListItem(props: ListItemProps) {
             </View>
             <View style={Layouts.row}>
                 <Text style={FontSizes.S}>{category}</Text>
-                <Text style={FontSizes.S}>{date}</Text>
+                <Text style={FontSizes.S}>{month}/{day}</Text>
             </View>
         </View>
     )
