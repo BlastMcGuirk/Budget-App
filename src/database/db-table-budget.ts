@@ -1,39 +1,22 @@
-import { useDatabase } from './db-service';
+import { Budget } from '../interfaces/Budget';
+import { BUDGET_TABLE_NAME, ITEM_TABLE_NAME } from './db-constants';
+import { runQuery } from './db-functions';
 
-export interface Budget {
-    id: number;
-    name: string;
-    budgetValue: number;
-}
-
-export const TABLE_NAME = 'budget';
-
-export const CREATE_TABLE = `
-    CREATE TABLE IF NOT EXISTS ${TABLE_NAME}(
-        budget_id INTEGER PRIMARY KEY,
-        budget_name TEXT NOT NULL UNIQUE
-        budget_value REAL NOT NULL
-    );
-`;
-
-export const getAllBudgets = (): Budget[] => {
-    const { exec } = useDatabase();
+export const getAllBudgets = (): Promise<Budget[]> => {
     const query = `
         SELECT 
             budget_id as id,
             budget_name as name,
             budget_value as budgetValue
-        FROM ${TABLE_NAME}
+        FROM ${BUDGET_TABLE_NAME}
     `;
-    return exec<Budget[]>(query, (data) => {
-        return data._array;
-    });
+    return runQuery<Budget>(query);
 }
 
-export const addBudget = (budgetName: string, budgetValue: number): Budget => {
+/*export const addBudget = (budgetName: string, budgetValue: number): Budget => {
     const { exec } = useDatabase();
     const query = `
-        INSERT INTO ${TABLE_NAME} (budget_name, budget_value)
+        INSERT INTO ${BUDGET_TABLE_NAME} (budget_name, budget_value)
         VALUES (${budgetName}, ${budgetValue})
     `;
     return exec<Budget>(query, (data) => {
@@ -44,7 +27,7 @@ export const addBudget = (budgetName: string, budgetValue: number): Budget => {
 export const deleteBudget = (budget: Budget): void => {
     const { exec } = useDatabase();
     const query = `
-        DELETE FROM ${TABLE_NAME}
+        DELETE FROM ${BUDGET_TABLE_NAME}
         WHERE budget_id = ${budget.id}
     `;
     exec(query, (_) => {});
@@ -53,7 +36,7 @@ export const deleteBudget = (budget: Budget): void => {
 export const updateBudget = (budget: Budget): Budget => {
     const { exec } = useDatabase();
     const query = `
-        UPDATE ${TABLE_NAME} 
+        UPDATE ${BUDGET_TABLE_NAME} 
         SET budget_name = ${budget.name},
             budget_value = ${budget.budgetValue}
         WHERE budget_id = ${budget.id}
@@ -61,4 +44,4 @@ export const updateBudget = (budget: Budget): Budget => {
     return exec<Budget>(query, (data) => {
         return data.item(0);
     });
-}
+}*/

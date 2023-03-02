@@ -3,7 +3,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import BudgetDetails, { BudgetDetailsProps } from './pages/BudgetDetails';
 import NewEntry, { NewEntryProps } from './pages/NewEntry';
+import { store } from './redux/store'
+import { Provider } from 'react-redux'
 
+// Navigation
 export type RootStackParamList = {
   Home: undefined;
   BudgetDetails: BudgetDetailsProps;
@@ -14,6 +17,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} options={{
@@ -27,6 +31,7 @@ export default function App() {
         }} />
       </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }
 

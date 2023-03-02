@@ -1,42 +1,41 @@
 import * as SQLite from 'expo-sqlite';
-import { useEffect, useState } from 'react';
-import {
-    CREATE_TABLE as BUDGET_CREATE_TABLE
-} from './db-table-budget';
-import { 
-    CREATE_TABLE as ITEM_CREATE_TABLE
-} from './db-table-item';
+import { Platform } from 'react-native';
+import { BUDGET_ADD_DEFAULTS, BUDGET_COUNT, BUDGET_CREATE_TABLE, ITEM_CREATE_TABLE } from './db-constants';
 
-const createTables = async (db: SQLite.WebSQLDatabase) => {
-    // Create table if it doesn't exist
-    const query = BUDGET_CREATE_TABLE + ITEM_CREATE_TABLE;
+function openDatabase() {
+    if (Platform.OS === "web") {
+        return {
+            transaction: () => {
+                return {
+                    executeSql: () => { },
+                };
+            },
+        } as unknown as SQLite.Database;
+    }
+  
+    const db = SQLite.openDatabase("db.db");
     db.transaction(tx => {
-        tx.executeSql(query);
-    });
-}
-
-export const useDatabase = () => {
-    const [db, _] = useState(SQLite.openDatabase('budget-app.db'));
-
-    useEffect(() => {
-        createTables(db);
-    }, [db]);
-
-    function exec<T>(query: string, callback: (data: SQLite.SQLResultSetRowList) => T) {
-        var myData: SQLite.SQLResultSetRowList = {
-            _array: [],
-            item: (_) => null,
-            length: 0
-        };
-        db.transaction(tx => {
-            tx.executeSql(
-                query,
-                [],
-                (_, { rows }) => {myData = rows}, 
-                (_, error) => { console.error(error.message); return true; });
+        tx.executeSql(BUDGET_CREATE_TABLE, [], (tx, res) => {
+            tx.executeSql(BUDGET_COUNT, [], (tx, res) => {
+                if (res.rows.item(0) === 0) {
+                    tx.executeSql(BUDGET_ADD_DEFAULTS, [], (tx, res) => {
+                    }, (tx, err) => {
+                        console.error(err);
+                        return true;
+                    });
+                }
+            })
+        }, (tx, err) => {
+            console.error(err);
+            return true;
         });
-        return callback(myData);
-    };
-
-    return { exec };
+        tx.executeSql(ITEM_CREATE_TABLE, [], (tx, res) => {
+        }, (tx, err) => {
+            console.error(err);
+            return true;
+        });
+    });
+    return db;
 }
+
+export const db = openDatabase();

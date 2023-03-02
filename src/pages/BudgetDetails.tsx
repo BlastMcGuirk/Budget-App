@@ -3,8 +3,9 @@ import React from 'react';
 import { View, ScrollView, Text, StyleSheet } from 'react-native';
 import { RootStackParamList } from '../App';
 import BudgetSummary from '../components/BudgetSummary';
-import ListItem, { Item } from '../components/ListItem';
-import { FontSizes, Layouts } from '../styles/global';
+import ListItem from '../components/ListItem';
+import { Item } from '../interfaces/Item';
+import { FontSizes } from '../styles/global';
 
 export interface BudgetDetailsProps {
     budget: string;
@@ -28,7 +29,7 @@ export default function BudgetDetails(props: Props) {
                 </Text>
             </View>
             {items.map(item => {
-                return <ListItem key={item.name + item.date + item.amount} item={item}/>
+                return <ListItem key={item.id} item={item}/>
             })}
         </ScrollView>
     )

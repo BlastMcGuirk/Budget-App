@@ -1,36 +1,8 @@
-import { useDatabase } from './db-service';
-import {TABLE_NAME as BUDGET_TABLE_NAME} from './db-table-budget';
+import { Item } from '../interfaces/Item';
+import { ITEM_TABLE_NAME } from './db-constants';
+import { runQuery } from './db-functions';
 
-export interface Item {
-    id: number;
-    budgetId: number;
-    name: string;
-    amount: number;
-    year: string;
-    month: string;
-    day: string;
-    category?: string;
-}
-
-export const TABLE_NAME = 'item';
-
-export const CREATE_TABLE = `
-CREATE TABLE IF NOT EXISTS ${TABLE_NAME}(
-    item_id INTEGER PRIMARY KEY,
-    budget_id INTEGER NOT NULL,
-    FOREIGN KEY (budget_id)
-        REFERENCES ${BUDGET_TABLE_NAME} (budget_id)
-    item_name TEXT NOT NULL,
-    amount REAL NOT NULL,
-    year TEXT NOT NULL,
-    month TEXT NOT NULL,
-    day TEXT NOT NULL,
-    category TEXT
-);
-`;
-
-export const getAllItems = (budgetId: number, year: string, month: string): Item[] => {
-    const { exec } = useDatabase();
+export const getAllItems = (budgetId: number, month: number, year: number): Promise<Item[]> => {
     const query = `
         SELECT 
             item_id as id,
@@ -41,18 +13,16 @@ export const getAllItems = (budgetId: number, year: string, month: string): Item
             month,
             day,
             category 
-        FROM ${TABLE_NAME}
+        FROM ${ITEM_TABLE_NAME}
         WHERE
             budget_id = ${budgetId} AND
             year = ${year} AND
             month = ${month}
     `;
-    return exec<Item[]>(query, (data) => {
-        return data._array;
-    });
+    return runQuery<Item>(query);
 }
 
-export const addItem = ( 
+/*export const addItem = ( 
     budgetId: number,
     itemName: string,
     amount: number,
@@ -62,7 +32,7 @@ export const addItem = (
     category?: string): Item => {
     const { exec } = useDatabase();
     const query = `
-        INSERT INTO ${TABLE_NAME} (budget_id, item_name, amount, year, month, day, category)
+        INSERT INTO ${ITEM_TABLE_NAME} (budget_id, item_name, amount, year, month, day, category)
         VALUES (${budgetId}, ${itemName}, ${amount}, ${year}, ${month}, ${day}, ${category ?? null})
     `;
     return exec<Item>(query, (data) => {
@@ -73,7 +43,7 @@ export const addItem = (
 export const deleteItem = (itemId: number): void => {
     const { exec } = useDatabase();
     const query = `
-        DELETE FROM ${TABLE_NAME}
+        DELETE FROM ${ITEM_TABLE_NAME}
         WHERE item_id = ${itemId}
     `;
     exec(query, (_) => {});
@@ -82,7 +52,7 @@ export const deleteItem = (itemId: number): void => {
 export const updateItem = (item: Item): Item => {
     const { exec } = useDatabase();
     const query = `
-        UPDATE ${TABLE_NAME} 
+        UPDATE ${ITEM_TABLE_NAME} 
         SET 
             item_name = ${item.name},
             amount = ${item.amount},
@@ -96,3 +66,4 @@ export const updateItem = (item: Item): Item => {
         return data.item(0);
     });
 }
+*/

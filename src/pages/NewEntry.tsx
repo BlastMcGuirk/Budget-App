@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import { RootStackParamList } from '../App';
 import { LabeledInput } from '../controls/LabeledInput';
@@ -22,7 +22,6 @@ export default function NewEntry(props: Props) {
 
     // The amount for the entry
     const [amount, setAmount] = useState('');
-    console.log(amount);
 
     // Optional category for the entry
     const [category, setCategory] = useState('');

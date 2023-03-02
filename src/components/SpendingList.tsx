@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Item } from '../database/db-table-item';
+import { Item } from '../interfaces/Item';
 import { FontSizes, Layouts } from '../styles/global';
 import ListItem from './ListItem';
 
