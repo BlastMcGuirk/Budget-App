@@ -8,9 +8,9 @@ export interface ListItemProps {
 }
 
 export default function ListItem(props: ListItemProps) {
-    const { name, amount, month, day, category } = props.item;
+    const { id, name, amount, month, day, category } = props.item;
     return (
-        <View style={styles.container}>
+        <View key={id} style={styles.container}>
             <View style={Layouts.row}>
                 <Text style={FontSizes.L}>{name}</Text>
                 <Text style={FontSizes.L}>${amount.toFixed(2)}</Text>

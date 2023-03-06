@@ -1,19 +1,28 @@
 import renderer from 'react-test-renderer';
-import ListItem, { Item } from '../ListItem';
+import { Item } from '../../interfaces/Item';
+import ListItem from '../ListItem';
 
 describe("List Item Tests", () => {
 
     const itemWithCategory: Item = {
+        id: 1,
+        budgetId: 1,
         name: "Item",
         amount: 12.34,
-        date: "1/1/22",
+        day: "1",
+        month: "1",
+        year: "2022",
         category: "Category"
     }
     
     const itemWithoutCategory: Item = {
+        id: 1,
+        budgetId: 1,
         name: "Item",
         amount: 12.34,
-        date: "1/1/22",
+        day: "1",
+        month: "1",
+        year: "2022"
     }
 
     it("Renders correctly with category", () => {
@@ -29,6 +38,5 @@ describe("List Item Tests", () => {
             .toJSON();
         expect(tree).toMatchSnapshot();
     });
-
 
 });

@@ -67,7 +67,9 @@ exports[`List Item Tests Renders correctly with category 1`] = `
         }
       }
     >
-      1/1/22
+      1
+      /
+      1
     </Text>
   </View>
 </View>
@@ -138,7 +140,9 @@ exports[`List Item Tests Renders correctly with category 2`] = `
         }
       }
     >
-      1/1/22
+      1
+      /
+      1
     </Text>
   </View>
 </View>

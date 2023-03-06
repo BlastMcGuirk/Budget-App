@@ -7,17 +7,18 @@ import SpendingList from '../components/SpendingList';
 import { RootState, useAppDispatch } from '../redux/store';
 import { Item } from '../interfaces/Item';
 import { useSelector } from 'react-redux';
-import { prevMonth } from '../redux/features/budget-slice';
+import { loadData } from '../redux/features/budget-slice';
+import { DatePicker } from '../components/DatePicker';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 export default function Home(props: Props) {
-    const {budgets, loading, month, year} = useSelector((state: RootState) => state.budgets);
+    const {budgets, loading} = useSelector((state: RootState) => state.budgets);
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(prevMonth());
+        dispatch(loadData());
     }, []);
 
     const navigateToDetails = function(budget: string, items: Item[]) {
@@ -32,6 +33,7 @@ export default function Home(props: Props) {
         <ScrollView contentContainerStyle={styles.container}>
             {loading && <Text>Loading...</Text>}
             {!loading && <>
+                <DatePicker />
                 <BudgetSummaries />
                 {budgets.map(budget => {
                     return <SpendingList 

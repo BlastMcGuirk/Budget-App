@@ -115,7 +115,7 @@ exports[`Spending List Tests Renders correctly 1`] = `
           }
         }
       >
-        8/4/2022
+        /
       </Text>
     </View>
   </View>
@@ -183,7 +183,7 @@ exports[`Spending List Tests Renders correctly 1`] = `
           }
         }
       >
-        8/7/2022
+        /
       </Text>
     </View>
   </View>

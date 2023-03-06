@@ -17,7 +17,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'BudgetDetails'>;
 export default function BudgetDetails(props: Props) {
     const { budget, items } = props.route.params;
     return (
-        <ScrollView contentContainerStyle={styles.container}>
+        <ScrollView key={budget} contentContainerStyle={styles.container}>
             {/*<Text style={[FontSizes.XL, styles.title]}>{budget}</Text>*/}
             <View style={styles.header}>
                 <BudgetSummary budget={budget} remaining={1234.56} total={1500} />

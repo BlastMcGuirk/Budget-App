@@ -10,10 +10,14 @@ describe("Budget Details Page Tests", () => {
                     budget: 'needs',
                     items: [
                         {
-                            name: 'Rent',
-                            amount: 1757.25,
-                            date: '8/4/2023',
-                            category: 'Bills'
+                            id: 1,
+                            budgetId: 1,
+                            name: "Item",
+                            amount: 12.34,
+                            day: "1",
+                            month: "1",
+                            year: "2022",
+                            category: "Category"
                         }
                     ]
                 }
