@@ -1,14 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { Budget } from '../interfaces/Budget';
 import { Item } from '../interfaces/Item';
 import { FontSizes, Layouts } from '../styles/global';
 import ListItem from './ListItem';
 
 export interface SpendingListProps {
-    budget: string;
+    budget: Budget;
     items: Item[];
-    onNavigate: (budget: string, items: Item[]) => void;
-    onNew: (budget: string) => void;
+    onNavigate: (budget: Budget, items: Item[]) => void;
+    onNew: (budget: Budget) => void;
 }
 
 export default function SpendingList(props: SpendingListProps) {
@@ -16,7 +17,7 @@ export default function SpendingList(props: SpendingListProps) {
         <View style={styles.container}>
             <View style={styles.header}>
                 <View style={Layouts.row}>
-                    <Text style={FontSizes.L}>{props.budget}</Text>
+                    <Text style={FontSizes.L}>{props.budget.name}</Text>
                     <Text
                         style={FontSizes.L} 
                         onPress={() => props.onNew(props.budget)}

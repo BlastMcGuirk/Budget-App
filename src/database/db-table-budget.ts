@@ -13,18 +13,16 @@ export const getAllBudgets = (): Promise<Budget[]> => {
     return runQuery<Budget>(query);
 }
 
-/*export const addBudget = (budgetName: string, budgetValue: number): Budget => {
-    const { exec } = useDatabase();
+export const addBudget = async (budgetName: string, budgetValue: number): Promise<Budget> => {
     const query = `
         INSERT INTO ${BUDGET_TABLE_NAME} (budget_name, budget_value)
         VALUES (${budgetName}, ${budgetValue})
     `;
-    return exec<Budget>(query, (data) => {
-        return data.item(0);
-    });
+    const budgetArr = await runQuery<Budget>(query);
+    return budgetArr[0];
 }
 
-export const deleteBudget = (budget: Budget): void => {
+/*export const deleteBudget = (budget: Budget): void => {
     const { exec } = useDatabase();
     const query = `
         DELETE FROM ${BUDGET_TABLE_NAME}

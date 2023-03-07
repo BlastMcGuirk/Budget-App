@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { Budget } from '../../interfaces/Budget';
 import { getAllBudgets } from '../../database/db-table-budget';
-import { getAllItems } from '../../database/db-table-item';
+import { addItem, getAllItems, ItemInput } from '../../database/db-table-item';
 import { RootState } from '../store';
 
 export const loadData = createAsyncThunk(
@@ -44,6 +44,22 @@ const fetchBudgetData = async (month: number, year: number) => {
     }
     return budgets;
 };
+
+export const addNewItem = createAsyncThunk(
+    'items/add',
+    async (data: ItemInput, thunkAPI) => {
+        const currentState = (thunkAPI.getState() as RootState).budgets;
+        console.log("ASDFASDF");
+        // Add the item to the database
+        await addItem(data);
+
+        // Reload the data using the curent month and year
+        const month = currentState.month;
+        const year = currentState.year;
+        const budgetData = await fetchBudgetData(month, year);
+        return {month, year, budgetData};
+    }
+)
 
 export interface BudgetState {
     month: number;
@@ -98,7 +114,21 @@ export const counterSlice = createSlice({
                 state.year = newYear;
                 state.budgets = budgetData;
                 state.loading = false;
-            });
+            })
+
+            // Add new item
+            .addCase(addNewItem.pending, (state, _) => {
+                console.log("Adding new item");
+                state.loading = true;
+            })
+            .addCase(addNewItem.fulfilled, (state, action) => {
+                const { month, year, budgetData } = action.payload;
+                console.log("Fulfilled adding new item");
+                state.month = month;
+                state.year = year;
+                state.budgets = budgetData;
+                state.loading = false;
+            })
     }
 });
 

@@ -9,6 +9,7 @@ import { Item } from '../interfaces/Item';
 import { useSelector } from 'react-redux';
 import { loadData } from '../redux/features/budget-slice';
 import { DatePicker } from '../components/DatePicker';
+import { Budget } from '../interfaces/Budget';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -21,11 +22,11 @@ export default function Home(props: Props) {
         dispatch(loadData());
     }, []);
 
-    const navigateToDetails = function(budget: string, items: Item[]) {
+    const navigateToDetails = function(budget: Budget, items: Item[]) {
         props.navigation.navigate("BudgetDetails", {budget, items});
     }
 
-    const navigateToNew = function(budget: string) {
+    const navigateToNew = function(budget: Budget) {
         props.navigation.navigate("NewEntry", {budget, returnTo: 'Home', returnProps: undefined});
     }
 
@@ -38,7 +39,7 @@ export default function Home(props: Props) {
                 {budgets.map(budget => {
                     return <SpendingList 
                         key={budget.id}
-                        budget={budget.name}
+                        budget={budget}
                         items={budget.items}
                         onNew={navigateToNew}
                         onNavigate={navigateToDetails} />

@@ -1,14 +1,15 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, ScrollView, Text, StyleSheet } from 'react-native';
 import { RootStackParamList } from '../App';
 import BudgetSummary from '../components/BudgetSummary';
 import ListItem from '../components/ListItem';
+import { Budget } from '../interfaces/Budget';
 import { Item } from '../interfaces/Item';
 import { FontSizes } from '../styles/global';
 
 export interface BudgetDetailsProps {
-    budget: string;
+    budget: Budget;
     items: Item[];
 }
 
@@ -16,11 +17,14 @@ type Props = NativeStackScreenProps<RootStackParamList, 'BudgetDetails'>;
 
 export default function BudgetDetails(props: Props) {
     const { budget, items } = props.route.params;
+    const sum = useMemo(() => {
+        return items.reduce((acc, cur) => acc + cur.amount, 0);
+    }, items);
     return (
-        <ScrollView key={budget} contentContainerStyle={styles.container}>
+        <ScrollView key={budget.id} contentContainerStyle={styles.container}>
             {/*<Text style={[FontSizes.XL, styles.title]}>{budget}</Text>*/}
             <View style={styles.header}>
-                <BudgetSummary budget={budget} remaining={1234.56} total={1500} />
+                <BudgetSummary budget={budget.name} remaining={sum} total={budget.budgetValue} />
                 <Text
                     style={[styles.new, FontSizes.S]}
                     onPress={() => console.log("Hello")}

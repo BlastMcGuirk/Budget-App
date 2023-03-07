@@ -22,25 +22,28 @@ export const getAllItems = (budgetId: number, month: number, year: number): Prom
     return runQuery<Item>(query);
 }
 
-/*export const addItem = ( 
-    budgetId: number,
-    itemName: string,
-    amount: number,
-    year: string,
-    month: string,
-    day: string,
-    category?: string): Item => {
-    const { exec } = useDatabase();
-    const query = `
-        INSERT INTO ${ITEM_TABLE_NAME} (budget_id, item_name, amount, year, month, day, category)
-        VALUES (${budgetId}, ${itemName}, ${amount}, ${year}, ${month}, ${day}, ${category ?? null})
-    `;
-    return exec<Item>(query, (data) => {
-        return data.item(0);
-    });
+export interface ItemInput {
+    budgetId: number;
+    itemName: string;
+    amount: number;
+    year: string;
+    month: string;
+    day: string;
+    category?: string;
 }
 
-export const deleteItem = (itemId: number): void => {
+export const addItem = async (input: ItemInput): Promise<Item> => {
+    const { amount, budgetId, day, itemName, month, year, category } = input;
+    console.log("AddItem", input);
+    const query = `
+        INSERT INTO ${ITEM_TABLE_NAME} (budget_id, item_name, amount, year, month, day, category)
+        VALUES (${budgetId}, "${itemName}", ${amount}, ${year}, ${month}, ${day}, "${category ?? null}")
+    `;
+    const itemArr = await runQuery<Item>(query);
+    return itemArr[0];
+}
+
+/*export const deleteItem = (itemId: number): void => {
     const { exec } = useDatabase();
     const query = `
         DELETE FROM ${ITEM_TABLE_NAME}
