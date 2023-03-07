@@ -45,7 +45,6 @@ export default function NewEntry(props: Props) {
             <LabeledInput label='Category' placeholder='Category' value={category} setValue={setCategory} />
             <Button title='Save' onPress={() => {
                 // Save the item to the database and store
-                console.log("ADddddddddDDDDDddding");
                 dispatch(addNewItem({
                     budgetId: budget.id,
                     itemName: name,

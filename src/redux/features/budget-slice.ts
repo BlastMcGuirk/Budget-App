@@ -49,7 +49,7 @@ export const addNewItem = createAsyncThunk(
     'items/add',
     async (data: ItemInput, thunkAPI) => {
         const currentState = (thunkAPI.getState() as RootState).budgets;
-        console.log("ASDFASDF");
+
         // Add the item to the database
         await addItem(data);
 
@@ -118,12 +118,10 @@ export const counterSlice = createSlice({
 
             // Add new item
             .addCase(addNewItem.pending, (state, _) => {
-                console.log("Adding new item");
                 state.loading = true;
             })
             .addCase(addNewItem.fulfilled, (state, action) => {
                 const { month, year, budgetData } = action.payload;
-                console.log("Fulfilled adding new item");
                 state.month = month;
                 state.year = year;
                 state.budgets = budgetData;

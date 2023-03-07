@@ -34,7 +34,6 @@ export interface ItemInput {
 
 export const addItem = async (input: ItemInput): Promise<Item> => {
     const { amount, budgetId, day, itemName, month, year, category } = input;
-    console.log("AddItem", input);
     const query = `
         INSERT INTO ${ITEM_TABLE_NAME} (budget_id, item_name, amount, year, month, day, category)
         VALUES (${budgetId}, "${itemName}", ${amount}, ${year}, ${month}, ${day}, "${category ?? null}")
