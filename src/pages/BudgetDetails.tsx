@@ -17,14 +17,15 @@ type Props = NativeStackScreenProps<RootStackParamList, 'BudgetDetails'>;
 
 export default function BudgetDetails(props: Props) {
     const { budget, items } = props.route.params;
-    const sum = useMemo(() => {
-        return items.reduce((acc, cur) => acc + cur.amount, 0);
+    const remaining = useMemo(() => {
+        const sum = budget.items.reduce((acc, cur) => acc + cur.amount, 0);
+        return budget.budgetValue - sum;
     }, items);
     return (
         <ScrollView key={budget.id} contentContainerStyle={styles.container}>
             {/*<Text style={[FontSizes.XL, styles.title]}>{budget}</Text>*/}
             <View style={styles.header}>
-                <BudgetSummary budget={budget.name} remaining={sum} total={budget.budgetValue} />
+                <BudgetSummary budget={budget.name} remaining={parseFloat(remaining.toFixed(2))} total={budget.budgetValue} />
                 <Text
                     style={[styles.new, FontSizes.S]}
                     onPress={() => console.log("Hello")}
