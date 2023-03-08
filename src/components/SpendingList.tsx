@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { useToggle } from '../hooks/toggle';
 import { useItem } from '../hooks/useItem';
 import { Budget } from '../interfaces/Budget';
 import { Item } from '../interfaces/Item';

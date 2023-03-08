@@ -30,15 +30,18 @@ export default function BudgetDetails(props: Props) {
 
     const { item, setItem, clearItem } = useItem();
 
+    const navigateToNew = function(budget: Budget) {
+        props.navigation.navigate("NewEntry", {budget, returnTo: 'BudgetDetails', returnProps: {budgetId}});
+    }
+
     return (
         <>
         <ScrollView key={budget.id} contentContainerStyle={styles.container}>
-            {/*<Text style={[FontSizes.XL, styles.title]}>{budget}</Text>*/}
             <View style={styles.header}>
                 <BudgetSummary budget={budget.name} remaining={parseFloat(remaining.toFixed(2))} total={budget.budgetValue} />
                 <Text
                     style={[styles.new, FontSizes.S]}
-                    onPress={() => console.log("Hello")}
+                    onPress={() => navigateToNew(budget)}
                     >
                     New Entry...
                 </Text>
