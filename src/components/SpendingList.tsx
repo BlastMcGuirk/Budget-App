@@ -30,7 +30,7 @@ export default function SpendingList(props: SpendingListProps) {
                     </Text>
                 </View>
             </View>
-            {props.items.slice(0, 3).map((item, index) => {
+            {props.items.slice(-3).reverse().map((item, index) => {
                 return <ListItem key={item.name + index} item={item} onLongPress={() => setItem(item)} />
             })}
             <View style={styles.footer}>

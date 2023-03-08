@@ -46,7 +46,7 @@ export default function BudgetDetails(props: Props) {
                     New Entry...
                 </Text>
             </View>
-            {budget.items.map(item => {
+            {budget.items.slice().reverse().map(item => {
                 return <ListItem key={item.id} item={item} onLongPress={() => setItem(item)} />
             })}
         </ScrollView>
