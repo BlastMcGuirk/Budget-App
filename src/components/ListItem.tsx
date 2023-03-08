@@ -1,25 +1,29 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { Item } from '../interfaces/Item';
 import { FontSizes, Layouts } from '../styles/global';
 
 export interface ListItemProps {
     item: Item
+    onLongPress: () => void;
 }
 
 export default function ListItem(props: ListItemProps) {
     const { id, name, amount, month, day, category } = props.item;
     return (
-        <View key={id} style={styles.container}>
-            <View style={Layouts.row}>
-                <Text style={FontSizes.L}>{name}</Text>
-                <Text style={FontSizes.L}>${amount.toFixed(2)}</Text>
+        <TouchableWithoutFeedback
+            onLongPress={props.onLongPress}>
+            <View key={id} style={styles.container} >
+                <View style={Layouts.row}>
+                    <Text style={FontSizes.L}>{name}</Text>
+                    <Text style={FontSizes.L}>${amount.toFixed(2)}</Text>
+                </View>
+                <View style={Layouts.row}>
+                    <Text style={FontSizes.S}>{category}</Text>
+                    <Text style={FontSizes.S}>{month}/{day}</Text>
+                </View>
             </View>
-            <View style={Layouts.row}>
-                <Text style={FontSizes.S}>{category}</Text>
-                <Text style={FontSizes.S}>{month}/{day}</Text>
-            </View>
-        </View>
+        </TouchableWithoutFeedback>
     )
 }
 

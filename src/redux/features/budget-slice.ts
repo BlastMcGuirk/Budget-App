@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { Budget } from '../../interfaces/Budget';
 import { getAllBudgets } from '../../database/db-table-budget';
-import { addItem, getAllItems, ItemInput } from '../../database/db-table-item';
+import { addItem, deleteItem, getAllItems, ItemInput } from '../../database/db-table-item';
 import { RootState } from '../store';
 
 export const loadData = createAsyncThunk(
@@ -57,7 +57,21 @@ export const addNewItem = createAsyncThunk(
         const month = currentState.month;
         const year = currentState.year;
         const budgetData = await fetchBudgetData(month, year);
-        return {month, year, budgetData};
+        return {budgetData};
+    }
+)
+
+export const deleteAndRemoveItem = createAsyncThunk(
+    'items/delete',
+    async (itemId: number, thunkAPI) => {
+        const currentState = (thunkAPI.getState() as RootState).budgets;
+
+        await deleteItem(itemId);
+
+        const month = currentState.month;
+        const year = currentState.year;
+        const budgetData = await fetchBudgetData(month, year);
+        return {budgetData};
     }
 )
 
@@ -121,9 +135,17 @@ export const counterSlice = createSlice({
                 state.loading = true;
             })
             .addCase(addNewItem.fulfilled, (state, action) => {
-                const { month, year, budgetData } = action.payload;
-                state.month = month;
-                state.year = year;
+                const { budgetData } = action.payload;
+                state.budgets = budgetData;
+                state.loading = false;
+            })
+
+            // Delete item
+            .addCase(deleteAndRemoveItem.pending, (state, _) => {
+                state.loading = true;
+            })
+            .addCase(deleteAndRemoveItem.fulfilled, (state, action) => {
+                const { budgetData } = action.payload;
                 state.budgets = budgetData;
                 state.loading = false;
             })

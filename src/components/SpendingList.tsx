@@ -1,19 +1,24 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useToggle } from '../hooks/toggle';
+import { useItem } from '../hooks/useItem';
 import { Budget } from '../interfaces/Budget';
 import { Item } from '../interfaces/Item';
 import { FontSizes, Layouts } from '../styles/global';
+import { DeleteItemDialog } from './DeleteItemDialog';
 import ListItem from './ListItem';
 
 export interface SpendingListProps {
     budget: Budget;
     items: Item[];
-    onNavigate: (budget: Budget, items: Item[]) => void;
+    onNavigate: (budgetId: number) => void;
     onNew: (budget: Budget) => void;
 }
 
 export default function SpendingList(props: SpendingListProps) {
+    const { item, setItem, clearItem } = useItem();
     return (
+        <>
         <View style={styles.container}>
             <View style={styles.header}>
                 <View style={Layouts.row}>
@@ -21,23 +26,25 @@ export default function SpendingList(props: SpendingListProps) {
                     <Text
                         style={FontSizes.L} 
                         onPress={() => props.onNew(props.budget)}
-                    >
+                        >
                         + New
                     </Text>
                 </View>
             </View>
             {props.items.slice(0, 3).map((item, index) => {
-                return <ListItem key={item.name + index} item={item}/>
+                return <ListItem key={item.name + index} item={item} onLongPress={() => setItem(item)} />
             })}
             <View style={styles.footer}>
                 <Text
                     style={FontSizes.M}
-                    onPress={() => props.onNavigate(props.budget, props.items)}
-                >
+                    onPress={() => props.onNavigate(props.budget.id)}
+                    >
                     See All
                 </Text>
             </View>
         </View>
+        <DeleteItemDialog item={item} clearItem={clearItem}  />
+        </>
     )
 }
 

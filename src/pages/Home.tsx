@@ -22,8 +22,8 @@ export default function Home(props: Props) {
         dispatch(loadData());
     }, []);
 
-    const navigateToDetails = function(budget: Budget, items: Item[]) {
-        props.navigation.navigate("BudgetDetails", {budget, items});
+    const navigateToDetails = function(budgetId: number) {
+        props.navigation.navigate("BudgetDetails", {budgetId: budgetId});
     }
 
     const navigateToNew = function(budget: Budget) {

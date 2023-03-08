@@ -42,16 +42,15 @@ export const addItem = async (input: ItemInput): Promise<Item> => {
     return itemArr[0];
 }
 
-/*export const deleteItem = (itemId: number): void => {
-    const { exec } = useDatabase();
+export const deleteItem = (itemId: number): void => {
     const query = `
         DELETE FROM ${ITEM_TABLE_NAME}
         WHERE item_id = ${itemId}
     `;
-    exec(query, (_) => {});
+    runQuery(query);
 }
 
-export const updateItem = (item: Item): Item => {
+/*export const updateItem = (item: Item): Item => {
     const { exec } = useDatabase();
     const query = `
         UPDATE ${ITEM_TABLE_NAME} 
