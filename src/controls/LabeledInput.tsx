@@ -7,6 +7,7 @@ export interface LabeledInputProps {
     placeholder: string;
     value: string,
     setValue: (value: string) => void;
+    error?: string;
     number?: boolean;
 }
 
@@ -16,7 +17,7 @@ export function LabeledInput(props: LabeledInputProps) {
     return (
         <View style={[styles.container]}>
             <TextInput
-                style={[styles.input, FontSizes.L]}
+                style={[props.error ? styles.errorInput : styles.input, FontSizes.L]}
                 value={displayValue}
                 onChangeText={(text) => {
                     text = text.split('$').join('')
@@ -24,7 +25,9 @@ export function LabeledInput(props: LabeledInputProps) {
                 }}
                 placeholder={props.placeholder}
                 keyboardType={props.number ? "number-pad" : "default"} />
-            <Text style={[styles.label, FontSizes.S]}>{props.label}</Text>
+            <Text style={[props.error ? styles.errorLabel : styles.label, FontSizes.S]}>
+                {props.error ?? props.label}
+            </Text>
         </View>
     )
 }
@@ -35,9 +38,16 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     input: {
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
+    },
+    errorInput: {
+        borderBottomWidth: 2,
+        borderBottomColor: '#F00'
     },
     label: {
         color: '#999'
+    },
+    errorLabel: {
+        color: '#F00'
     }
 });

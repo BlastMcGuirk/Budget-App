@@ -1,9 +1,8 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import { RootStackParamList } from '../App';
 import { LabeledInput } from '../controls/LabeledInput';
-import { addItem } from '../database/db-table-item';
 import { Budget } from '../interfaces/Budget';
 import { addNewItem } from '../redux/features/budget-slice';
 import { useAppDispatch } from '../redux/store';
@@ -24,9 +23,24 @@ export default function NewEntry(props: Props) {
 
     // The name for the entry
     const [name, setName] = useState('');
+    const nameError = useMemo<string | undefined>(() => {
+        if (name.length === 0) return 'Must enter a name';
+        if (name.length > 10) return 'Name too long';
+        return undefined;
+    }, [name]);
 
     // The amount for the entry
     const [amount, setAmount] = useState('');
+    const amountError = useMemo<string | undefined>(() => {
+        if (amount.length === 0) return 'Must enter an amount';
+        if (amount.indexOf(',') > -1) return 'Invalid character (,)';
+        if (amount.indexOf('-') > -1) return 'Invalid character (-)';
+        if (amount.indexOf(' ') > -1) return 'Invalid character (_)';
+        const amounts = amount.split('.');
+        if (amounts.length > 2) return 'Too many decimals';
+        if (amounts.length > 1 && amounts[1].length > 2) return 'Too many digits';
+        return undefined;
+    }, [amount]);
 
     // Optional category for the entry
     const [category, setCategory] = useState('');
@@ -40,10 +54,10 @@ export default function NewEntry(props: Props) {
     return (
         <View style={styles.container}>
             <Text style={[styles.header, FontSizes.L]}>Add to: {budget.name}</Text>
-            <LabeledInput label='Name*' placeholder='Name' value={name} setValue={setName} />
-            <LabeledInput label='Amount*' placeholder='0.00' value={amount} setValue={setAmount} number />
+            <LabeledInput label='Name*' placeholder='Name' value={name} setValue={setName} error={nameError} />
+            <LabeledInput label='Amount*' placeholder='0.00' value={amount} setValue={setAmount} error={amountError} number />
             <LabeledInput label='Category' placeholder='Category' value={category} setValue={setCategory} />
-            <Button title='Save' onPress={() => {
+            <Button title='Save' disabled={!!(nameError || amountError)} onPress={() => {
                 // Save the item to the database and store
                 dispatch(addNewItem({
                     budgetId: budget.id,
