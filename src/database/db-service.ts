@@ -1,4 +1,4 @@
-import { Database, openDatabase } from 'expo-sqlite';
+import * as SQLite from 'expo-sqlite';
 import { Platform } from 'react-native';
 import { BUDGET_ADD_DEFAULTS, BUDGET_COUNT, BUDGET_CREATE_TABLE, ITEM_CREATE_TABLE } from './db-constants';
 
@@ -10,10 +10,10 @@ function initializeDatabase() {
                     executeSql: () => { },
                 };
             },
-        } as unknown as Database;
+        } as unknown as SQLite.Database;
     }
   
-    const db = openDatabase("db.db");
+    const db = SQLite.openDatabase("db.db");
     db.transaction(tx => {
         tx.executeSql(BUDGET_CREATE_TABLE, [], (tx, res) => {
             tx.executeSql(BUDGET_COUNT, [], (tx, res) => {

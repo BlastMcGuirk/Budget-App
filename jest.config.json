@@ -1,0 +1,11 @@
+{
+    "verbose": true,
+    "preset": "react-native",
+    "testEnvironment": "jsdom",
+    "coveragePathIgnorePatterns": [
+        "<rootDir>/test_utils/"
+    ],
+    "transformIgnorePatterns": [
+        "node_modules/(?!(@react-native|react-native|react-native-vector-icons)/)"
+    ]
+}

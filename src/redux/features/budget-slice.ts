@@ -152,4 +152,6 @@ export const counterSlice = createSlice({
     }
 });
 
+export const selectBudgets = (state: RootState) => state.budgets;
+
 export default counterSlice.reducer;

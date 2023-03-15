@@ -5,7 +5,6 @@ import { RootStackParamList } from '../App';
 import BudgetSummaries from '../components/BudgetSummaries';
 import SpendingList from '../components/SpendingList';
 import { RootState, useAppDispatch } from '../redux/store';
-import { Item } from '../interfaces/Item';
 import { useSelector } from 'react-redux';
 import { loadData } from '../redux/features/budget-slice';
 import { DatePicker } from '../components/DatePicker';
