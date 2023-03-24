@@ -18,6 +18,9 @@ export const getAllItems = (budgetId: number, month: number, year: number): Prom
             budget_id = ${budgetId} AND
             year = ${year} AND
             month = ${month}
+        ORDER BY
+            year, month, day
+            ASC
     `;
     return runQuery<Item>(query);
 }

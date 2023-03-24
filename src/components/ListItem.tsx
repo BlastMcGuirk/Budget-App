@@ -10,6 +10,7 @@ export interface ListItemProps {
 
 export default function ListItem(props: ListItemProps) {
     const { id, name, amount, month, day, category } = props.item;
+    const categoryValue = category !== 'null' ? category : '';
     return (
         <TouchableWithoutFeedback
             onLongPress={props.onLongPress}>
@@ -19,7 +20,7 @@ export default function ListItem(props: ListItemProps) {
                     <Text style={FontSizes.L}>${amount.toFixed(2)}</Text>
                 </View>
                 <View style={Layouts.row}>
-                    <Text style={FontSizes.S}>{category}</Text>
+                    <Text style={FontSizes.S}>{categoryValue}</Text>
                     <Text style={FontSizes.S}>{month}/{day}</Text>
                 </View>
             </View>
