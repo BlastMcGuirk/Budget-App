@@ -4,95 +4,9 @@ import { getAllBudgets } from '../../database/db-table-budget';
 import { addItem, deleteItem, getAllItems, ItemInput, updateItem } from '../../database/db-table-item';
 import { RootState } from '../store';
 import { Item } from '../../interfaces/Item';
-
-export const loadData = createAsyncThunk(
-    'budgets/loadData',
-    async (data, thunkAPI) => {
-        const currentState = (thunkAPI.getState() as RootState).budgets;
-        const month = currentState.month;
-        const year = currentState.year;
-        const budgetData = await fetchBudgetData(month, year);
-        return {month, year, budgetData};
-    }
-);
-
-export const prevMonth = createAsyncThunk(
-    'budgets/prevMonth',
-    async (data, thunkAPI) => {
-        const currentState = (thunkAPI.getState() as RootState).budgets;
-        const newMonth = (currentState.month == 1) ? 12 : (currentState.month - 1);
-        const newYear = newMonth == 12 ? currentState.year - 1 : currentState.year;
-        const budgetData = await fetchBudgetData(newMonth, newYear);
-        return {newMonth, newYear, budgetData};
-    }
-);
-
-export const nextMonth = createAsyncThunk(
-    'budgets/nextMonth',
-    async (data, thunkAPI) => {
-        const currentState = (thunkAPI.getState() as RootState).budgets;
-        const newMonth = (currentState.month == 12) ? 1 : (currentState.month + 1);
-        const newYear = newMonth == 1 ? currentState.year + 1 : currentState.year;
-        const budgetData = await fetchBudgetData(newMonth, newYear);
-        return {newMonth, newYear, budgetData};
-    }
-);
-
-const fetchBudgetData = async (month: number, year: number) => {
-    const budgets = await getAllBudgets();
-    for (const budget of budgets) {
-        const items = await getAllItems(budget.id, month, year);
-        budget.items = items;
-    }
-    return budgets;
-};
-
-export const addNewItem = createAsyncThunk(
-    'items/add',
-    async (data: ItemInput, thunkAPI) => {
-        const currentState = (thunkAPI.getState() as RootState).budgets;
-
-        // Add the item to the database
-        await addItem(data);
-
-        // Reload the data using the curent month and year
-        const month = currentState.month;
-        const year = currentState.year;
-        const budgetData = await fetchBudgetData(month, year);
-        return {budgetData};
-    }
-)
-
-export const updateExistingItem = createAsyncThunk(
-    'items/update',
-    async (data: Item, thunkAPI) => {
-        const currentState = (thunkAPI.getState() as RootState).budgets;
-
-        // Add the item to the database
-        await updateItem(data);
-
-        // Reload the data using the curent month and year
-        const month = currentState.month;
-        const year = currentState.year;
-        const budgetData = await fetchBudgetData(month, year);
-        
-        return {budgetData};
-    }
-)
-
-export const deleteAndRemoveItem = createAsyncThunk(
-    'items/delete',
-    async (itemId: number, thunkAPI) => {
-        const currentState = (thunkAPI.getState() as RootState).budgets;
-
-        await deleteItem(itemId);
-
-        const month = currentState.month;
-        const year = currentState.year;
-        const budgetData = await fetchBudgetData(month, year);
-        return {budgetData};
-    }
-)
+import { loadData, nextMonth, prevMonth } from './actions/common';
+import { addNewItem, deleteAndRemoveItem, updateExistingItem } from './actions/items';
+import { updateExistingBudget } from './actions/budgets';
 
 export interface BudgetState {
     month: number;
@@ -149,11 +63,31 @@ export const counterSlice = createSlice({
                 state.loading = false;
             })
 
+            // Update budget
+            .addCase(updateExistingBudget.pending, (state, _) => {
+                state.loading = true;
+            })
+            .addCase(updateExistingBudget.fulfilled, (state, action) => {
+                const { budgetData } = action.payload;
+                state.budgets = budgetData;
+                state.loading = false;
+            })
+
             // Add new item
             .addCase(addNewItem.pending, (state, _) => {
                 state.loading = true;
             })
             .addCase(addNewItem.fulfilled, (state, action) => {
+                const { budgetData } = action.payload;
+                state.budgets = budgetData;
+                state.loading = false;
+            })
+
+            // Update item
+            .addCase(updateExistingItem.pending, (state, _) => {
+                state.loading = true;
+            })
+            .addCase(updateExistingItem.fulfilled, (state, action) => {
                 const { budgetData } = action.payload;
                 state.budgets = budgetData;
                 state.loading = false;

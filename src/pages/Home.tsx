@@ -6,9 +6,8 @@ import BudgetSummaries from '../components/BudgetSummaries';
 import SpendingList from '../components/SpendingList';
 import { RootState, useAppDispatch } from '../redux/store';
 import { useSelector } from 'react-redux';
-import { loadData } from '../redux/features/budget-slice';
 import { DateNavigator } from '../components/DateNavigator';
-import { Budget } from '../interfaces/Budget';
+import { loadData } from '../redux/features/actions/common';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 

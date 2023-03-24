@@ -1,22 +1,22 @@
 import React from 'react';
 import Dialog from 'react-native-dialog';
 import { DialogContext } from '../hooks/useDialogContext';
-import { Item } from '../interfaces/Item';
+import { Budget } from '../interfaces/Budget';
 import { deleteAndRemoveItem } from '../redux/features/actions/items';
 import { useAppDispatch } from '../redux/store';
 
-export interface DeleteItemDialogProps {
-    context: DialogContext<Item>;
+export interface DeleteBudgetDialogProps {
+    context: DialogContext<Budget>;
 }
 
-export function DeleteItemDialog(props: DeleteItemDialogProps) {
+export function DeleteBudgetDialog(props: DeleteBudgetDialogProps) {
     const { context, clearContext } = props.context;
     const dispatch = useAppDispatch();
     return (
         <Dialog.Container visible={context !== null}>
-            <Dialog.Title>Delete Item</Dialog.Title>
+            <Dialog.Title>Delete Budget</Dialog.Title>
             <Dialog.Description>
-                Are you sure you want to delete this item?
+                Are you sure you want to delete this budget?
             </Dialog.Description>
             <Dialog.Button label="Cancel" onPress={clearContext} />
             <Dialog.Button label="Delete" onPress={async () => {

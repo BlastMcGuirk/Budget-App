@@ -3,7 +3,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { RootStackParamList } from '../App';
-import { useItem } from '../hooks/useItem';
+import { useDialogContext } from '../hooks/useDialogContext';
 import { Budget } from '../interfaces/Budget';
 import { Item } from '../interfaces/Item';
 import { FontSizes, Layouts } from '../styles/global';
@@ -18,7 +18,7 @@ export default function SpendingList(props: SpendingListProps) {
     const { budget } = props;
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     
-    const { item, setItem, clearItem } = useItem();
+    const dialogContext = useDialogContext<Item>();
 
     const navToBudget = () => navigation.navigate("BudgetDetails", { budgetId: budget.id });
     const navToItem = (item: Item) => navigation.navigate("ItemDetails", { budgetId: budget.id, itemId: item.id });
@@ -45,7 +45,7 @@ export default function SpendingList(props: SpendingListProps) {
                     key={item.name + index}
                     item={item}
                     onPress={() => navToItem(item)}
-                    onLongPress={() => setItem(item)} />
+                    onLongPress={() => dialogContext.setContext(item)} />
             })}
             <View style={styles.footer}>
                 <Text
@@ -56,7 +56,7 @@ export default function SpendingList(props: SpendingListProps) {
                 </Text>
             </View>
         </View>
-        <DeleteItemDialog item={item} clearItem={clearItem}  />
+        <DeleteItemDialog context={dialogContext}  />
         </>
     )
 }

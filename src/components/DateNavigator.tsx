@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useSelector } from "react-redux";
-import { nextMonth, prevMonth } from "../redux/features/budget-slice";
+import { nextMonth, prevMonth } from "../redux/features/actions/common";
 import { RootState, useAppDispatch } from "../redux/store";
 import { FontSizes } from "../styles/global";
 

@@ -7,6 +7,7 @@ import { ItemDetails, ItemDetailsProps } from './pages/ItemDetails';
 import { setupStore } from './redux/store'
 import { Provider } from 'react-redux'
 import EditItem, { EditItemProps } from './pages/EditItem';
+import EditBudget, { EditBudgetProps } from './pages/EditBudget';
 
 // Navigation
 export type RootStackParamList = {
@@ -15,6 +16,7 @@ export type RootStackParamList = {
   NewEntry: NewEntryProps;
   ItemDetails: ItemDetailsProps;
   EditItem: EditItemProps;
+  EditBudget: EditBudgetProps;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -28,7 +30,7 @@ export default function App() {
           title: "Budget Buddy"
         }} />
         <Stack.Screen name="BudgetDetails" component={BudgetDetails} options={{
-          title: "Details"
+          title: "Budget Details"
         }} />
         <Stack.Screen name="NewEntry" component={NewEntry} options={{
           title: "New Entry"
@@ -38,6 +40,9 @@ export default function App() {
         }} />
         <Stack.Screen name="EditItem" component={EditItem} options={{
           title: "Edit Item"
+        }} />
+        <Stack.Screen name="EditBudget" component={EditBudget} options={{
+          title: "Edit Budget"
         }} />
       </Stack.Navigator>
     </NavigationContainer>

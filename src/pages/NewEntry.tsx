@@ -4,11 +4,11 @@ import { View, Text, StyleSheet, Button } from 'react-native';
 import { RootStackParamList } from '../App';
 import { LabeledInput } from '../controls/LabeledInput';
 import { Budget } from '../interfaces/Budget';
-import { addNewItem } from '../redux/features/budget-slice';
 import { useAppDispatch } from '../redux/store';
 import { FontSizes } from '../styles/global';
 import { BudgetDetailsProps } from './BudgetDetails';
 import { DateInput } from '../controls/DateInput';
+import { addNewItem } from '../redux/features/actions/items';
 
 export interface NewEntryProps {
     budget: Budget;
@@ -26,7 +26,7 @@ export default function NewEntry(props: Props) {
     const [name, setName] = useState('');
     const nameError = useMemo<string | undefined>(() => {
         if (name.length === 0) return 'Must enter a name';
-        if (name.length > 10) return 'Name too long';
+        if (name.length > 25) return 'Name too long';
         return undefined;
     }, [name]);
 

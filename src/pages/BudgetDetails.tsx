@@ -1,13 +1,16 @@
+import { useIsFocused } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useMemo } from 'react';
 import { View, ScrollView, Text, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useSelector } from 'react-redux';
 import { RootStackParamList } from '../App';
 import BudgetSummary from '../components/BudgetSummary';
 import { DeleteItemDialog } from '../components/DeleteItemDialog';
 import ListItem from '../components/ListItem';
-import { useItem } from '../hooks/useItem';
+import { useDialogContext } from '../hooks/useDialogContext';
 import { Budget } from '../interfaces/Budget';
+import { Item } from '../interfaces/Item';
 import { RootState } from '../redux/store';
 import { FontSizes } from '../styles/global';
 
@@ -20,12 +23,20 @@ type Props = NativeStackScreenProps<RootStackParamList, 'BudgetDetails'>;
 export default function BudgetDetails(props: Props) {
     const { budgets, loading } = useSelector((state: RootState) => state.budgets);
     const { budgetId } = props.route.params;
+    const isInFocus = useIsFocused();
 
     const budget = useMemo(() => {
         return budgets.find(b => b.id === budgetId)!;
-    }, [budgets, budgetId]);
+    }, [budgets, budgetId, isInFocus]);
 
-    const { item, setItem, clearItem } = useItem();
+    React.useEffect(() => {
+        props.navigation.setOptions({
+            headerRight: () => 
+                <Icon style={[FontSizes.L]} name='edit' onPress={() => {props.navigation.navigate('EditBudget', { budget })}} />
+        })
+    }, [budget]);
+
+    const dialogContext = useDialogContext<Item>();
 
     const navigateToNew = function(budget: Budget) {
         props.navigation.navigate("NewEntry", {budget, returnTo: 'BudgetDetails', returnProps: {budgetId}});
@@ -52,10 +63,10 @@ export default function BudgetDetails(props: Props) {
                     key={item.id}
                     item={item}
                     onPress={() => navigateToItemDetails(item.budgetId, item.id)}
-                    onLongPress={() => setItem(item)} />
+                    onLongPress={() => dialogContext.setContext(item)} />
             })}
         </ScrollView>
-        <DeleteItemDialog item={item} clearItem={clearItem} />
+        <DeleteItemDialog context={dialogContext} />
         </>
     )
 }

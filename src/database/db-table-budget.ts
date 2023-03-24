@@ -1,5 +1,5 @@
 import { Budget } from '../interfaces/Budget';
-import { BUDGET_TABLE_NAME, ITEM_TABLE_NAME } from './db-constants';
+import { BUDGET_TABLE_NAME } from './db-constants';
 import { runQuery } from './db-functions';
 
 export const getAllBudgets = (): Promise<Budget[]> => {
@@ -22,24 +22,21 @@ export const addBudget = async (budgetName: string, budgetValue: number): Promis
     return budgetArr[0];
 }
 
-/*export const deleteBudget = (budget: Budget): void => {
-    const { exec } = useDatabase();
+export const deleteBudget = (budgetId: number): void => {
     const query = `
         DELETE FROM ${BUDGET_TABLE_NAME}
-        WHERE budget_id = ${budget.id}
+        WHERE budget_id = ${budgetId}
     `;
-    exec(query, (_) => {});
+    runQuery(query);
 }
 
-export const updateBudget = (budget: Budget): Budget => {
-    const { exec } = useDatabase();
+export const updateBudget = async (budget: Budget): Promise<Budget> => {
     const query = `
         UPDATE ${BUDGET_TABLE_NAME} 
-        SET budget_name = ${budget.name},
+        SET budget_name = "${budget.name}",
             budget_value = ${budget.budgetValue}
         WHERE budget_id = ${budget.id}
     `;
-    return exec<Budget>(query, (data) => {
-        return data.item(0);
-    });
-}*/
+    const budgetArr = await runQuery<Budget>(query);
+    return budgetArr[0];
+}
