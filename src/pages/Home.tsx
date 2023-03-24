@@ -21,12 +21,16 @@ export default function Home(props: Props) {
         dispatch(loadData());
     }, []);
 
-    const navigateToDetails = function(budgetId: number) {
+    const navigateToBudgetDetails = function(budgetId: number) {
         props.navigation.navigate("BudgetDetails", {budgetId: budgetId});
     }
 
     const navigateToNew = function(budget: Budget) {
         props.navigation.navigate("NewEntry", {budget, returnTo: 'Home', returnProps: undefined});
+    }
+
+    const navigateToItemDetails = function(budgetId: number, itemId: number) {
+        props.navigation.navigate("ItemDetails", { budgetId, itemId });
     }
 
     return (
@@ -41,7 +45,8 @@ export default function Home(props: Props) {
                         budget={budget}
                         items={budget.items}
                         onNew={navigateToNew}
-                        onNavigate={navigateToDetails} />
+                        onNavigateBudget={navigateToBudgetDetails}
+                        onNavigateItem={navigateToItemDetails} />
                 })}
             </>}
         </ScrollView>

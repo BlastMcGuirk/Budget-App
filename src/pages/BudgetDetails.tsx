@@ -34,6 +34,10 @@ export default function BudgetDetails(props: Props) {
         props.navigation.navigate("NewEntry", {budget, returnTo: 'BudgetDetails', returnProps: {budgetId}});
     }
 
+    const navigateToItemDetails = function(budgetId: number, itemId: number) {
+        props.navigation.navigate("ItemDetails", { budgetId, itemId });
+    }
+
     return (
         <>
         <ScrollView key={budget.id} contentContainerStyle={styles.container}>
@@ -47,7 +51,11 @@ export default function BudgetDetails(props: Props) {
                 </Text>
             </View>
             {budget.items.slice().reverse().map(item => {
-                return <ListItem key={item.id} item={item} onLongPress={() => setItem(item)} />
+                return <ListItem 
+                    key={item.id}
+                    item={item}
+                    onPress={() => navigateToItemDetails(item.budgetId, item.id)}
+                    onLongPress={() => setItem(item)} />
             })}
         </ScrollView>
         <DeleteItemDialog item={item} clearItem={clearItem} />

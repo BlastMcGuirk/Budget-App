@@ -5,6 +5,7 @@ import { FontSizes, Layouts } from '../styles/global';
 
 export interface ListItemProps {
     item: Item
+    onPress: () => void;
     onLongPress: () => void;
 }
 
@@ -13,6 +14,7 @@ export default function ListItem(props: ListItemProps) {
     const categoryValue = category !== 'null' ? category : '';
     return (
         <TouchableWithoutFeedback
+            onPress={props.onPress}
             onLongPress={props.onLongPress}>
             <View key={id} style={styles.container} >
                 <View style={Layouts.row}>

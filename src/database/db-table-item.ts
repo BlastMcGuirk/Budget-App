@@ -53,21 +53,17 @@ export const deleteItem = (itemId: number): void => {
     runQuery(query);
 }
 
-/*export const updateItem = (item: Item): Item => {
-    const { exec } = useDatabase();
+export const updateItem = async (item: Item): Promise<Item> => {
     const query = `
         UPDATE ${ITEM_TABLE_NAME} 
-        SET 
-            item_name = ${item.name},
+        SET item_name = "${item.name}",
             amount = ${item.amount},
             year = ${item.year},
             month = ${item.month},
             day = ${item.day},
-            category = ${item.category ?? null}
+            category = "${item.category ?? null}"
         WHERE item_id = ${item.id}
     `;
-    return exec<Item>(query, (data) => {
-        return data.item(0);
-    });
+    const itemArr = await runQuery<Item>(query);
+    return itemArr[0];
 }
-*/

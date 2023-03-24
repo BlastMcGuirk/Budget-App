@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { Budget } from '../../interfaces/Budget';
 import { getAllBudgets } from '../../database/db-table-budget';
-import { addItem, deleteItem, getAllItems, ItemInput } from '../../database/db-table-item';
+import { addItem, deleteItem, getAllItems, ItemInput, updateItem } from '../../database/db-table-item';
 import { RootState } from '../store';
+import { Item } from '../../interfaces/Item';
 
 export const loadData = createAsyncThunk(
     'budgets/loadData',
@@ -40,7 +41,8 @@ export const nextMonth = createAsyncThunk(
 const fetchBudgetData = async (month: number, year: number) => {
     const budgets = await getAllBudgets();
     for (const budget of budgets) {
-        budget.items = await getAllItems(budget.id, month, year);
+        const items = await getAllItems(budget.id, month, year);
+        budget.items = items;
     }
     return budgets;
 };
@@ -57,6 +59,23 @@ export const addNewItem = createAsyncThunk(
         const month = currentState.month;
         const year = currentState.year;
         const budgetData = await fetchBudgetData(month, year);
+        return {budgetData};
+    }
+)
+
+export const updateExistingItem = createAsyncThunk(
+    'items/update',
+    async (data: Item, thunkAPI) => {
+        const currentState = (thunkAPI.getState() as RootState).budgets;
+
+        // Add the item to the database
+        await updateItem(data);
+
+        // Reload the data using the curent month and year
+        const month = currentState.month;
+        const year = currentState.year;
+        const budgetData = await fetchBudgetData(month, year);
+        
         return {budgetData};
     }
 )

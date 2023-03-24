@@ -10,7 +10,8 @@ import ListItem from './ListItem';
 export interface SpendingListProps {
     budget: Budget;
     items: Item[];
-    onNavigate: (budgetId: number) => void;
+    onNavigateBudget: (budgetId: number) => void;
+    onNavigateItem: (budgetId: number, itemId: number) => void;
     onNew: (budget: Budget) => void;
 }
 
@@ -31,12 +32,16 @@ export default function SpendingList(props: SpendingListProps) {
                 </View>
             </View>
             {props.items.slice(-3).reverse().map((item, index) => {
-                return <ListItem key={item.name + index} item={item} onLongPress={() => setItem(item)} />
+                return <ListItem 
+                    key={item.name + index}
+                    item={item}
+                    onPress={() => props.onNavigateItem(item.budgetId, item.id)}
+                    onLongPress={() => setItem(item)} />
             })}
             <View style={styles.footer}>
                 <Text
                     style={FontSizes.M}
-                    onPress={() => props.onNavigate(props.budget.id)}
+                    onPress={() => props.onNavigateBudget(props.budget.id)}
                     >
                     See All
                 </Text>
