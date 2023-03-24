@@ -24,10 +24,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.blastmcguirk.BudgetBuddy"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "18cd4230-806e-4997-8f35-595f3e5816a7"
+      }
     }
   }
 }

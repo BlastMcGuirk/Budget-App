@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS ${BUDGET_TABLE_NAME} (
 `;
 
 export const BUDGET_COUNT = `
-SELECT count(*) from ${BUDGET_TABLE_NAME};
+SELECT count(*) as count FROM ${BUDGET_TABLE_NAME};
 `;
 
 export const BUDGET_ADD_DEFAULTS = `

@@ -17,7 +17,7 @@ function initializeDatabase() {
     db.transaction(tx => {
         tx.executeSql(BUDGET_CREATE_TABLE, [], (tx, res) => {
             tx.executeSql(BUDGET_COUNT, [], (tx, res) => {
-                if (res.rows.item(0) === 0) {
+                if (res.rows.item(0)["count"] === 0) {
                     tx.executeSql(BUDGET_ADD_DEFAULTS, [], (tx, res) => {
                     }, (tx, err) => {
                         console.error(err);
