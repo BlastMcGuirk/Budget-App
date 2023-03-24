@@ -8,6 +8,7 @@ import { addNewItem } from '../redux/features/budget-slice';
 import { useAppDispatch } from '../redux/store';
 import { FontSizes } from '../styles/global';
 import { BudgetDetailsProps } from './BudgetDetails';
+import { DateInput } from '../controls/DateInput';
 
 export interface NewEntryProps {
     budget: Budget;
@@ -46,10 +47,7 @@ export default function NewEntry(props: Props) {
     const [category, setCategory] = useState('');
 
     // The date for the entry
-    const today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    const yyyy = String(today.getFullYear());
+    const [date, setDate] = useState(new Date());
 
     return (
         <View style={styles.container}>
@@ -57,7 +55,13 @@ export default function NewEntry(props: Props) {
             <LabeledInput label='Name*' placeholder='Name' value={name} setValue={setName} error={nameError} />
             <LabeledInput label='Amount*' placeholder='0.00' value={amount} setValue={setAmount} error={amountError} number />
             <LabeledInput label='Category' placeholder='Category' value={category} setValue={setCategory} />
+            <DateInput label='Date' date={date} setDate={setDate} />
             <Button title='Save' disabled={!!(nameError || amountError)} onPress={() => {
+                // Extract information from state
+                const dd = String(date.getDate()).padStart(2, '0');
+                const mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+                const yyyy = String(date.getFullYear());
+
                 // Save the item to the database and store
                 dispatch(addNewItem({
                     budgetId: budget.id,

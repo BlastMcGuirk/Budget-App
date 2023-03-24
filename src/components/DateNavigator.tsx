@@ -20,7 +20,7 @@ const months = [
     "December"
 ];
 
-export const DatePicker = () => {
+export const DateNavigator = () => {
     const { month, year } = useSelector((state: RootState) => state.budgets);
     const dispatch = useAppDispatch();
 

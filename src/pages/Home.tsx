@@ -7,7 +7,7 @@ import SpendingList from '../components/SpendingList';
 import { RootState, useAppDispatch } from '../redux/store';
 import { useSelector } from 'react-redux';
 import { loadData } from '../redux/features/budget-slice';
-import { DatePicker } from '../components/DatePicker';
+import { DateNavigator } from '../components/DateNavigator';
 import { Budget } from '../interfaces/Budget';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
@@ -33,7 +33,7 @@ export default function Home(props: Props) {
         <ScrollView contentContainerStyle={styles.container}>
             {loading && <Text>Loading...</Text>}
             {!loading && <>
-                <DatePicker />
+                <DateNavigator />
                 <BudgetSummaries />
                 {budgets.map(budget => {
                     return <SpendingList 
