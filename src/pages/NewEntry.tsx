@@ -35,7 +35,7 @@ export default function NewEntry(props: Props) {
     const amountError = useMemo<string | undefined>(() => {
         if (amount.length === 0) return 'Must enter an amount';
         if (amount.indexOf(',') > -1) return 'Invalid character (,)';
-        if (amount.indexOf('-') > -1) return 'Invalid character (-)';
+        if (amount.indexOf('-', 1) > 0) return 'Invalid character after first position (-)';
         if (amount.indexOf(' ') > -1) return 'Invalid character (_)';
         const amounts = amount.split('.');
         if (amounts.length > 2) return 'Too many decimals';
