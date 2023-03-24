@@ -5,7 +5,11 @@ import BudgetSummary from '../components/BudgetSummary';
 import { RootState } from '../redux/store';
 import { Layouts } from '../styles/global';
 
-export default function BudgetSummaries() {
+export interface BudgetSummariesProps {
+    navigateToBudgetDetails: (budgetId: number) => void;
+}
+
+export default function BudgetSummaries(props: BudgetSummariesProps) {
     const { budgets } = useSelector((state: RootState) => state.budgets);
     return (
         <View style={Layouts.row}>
@@ -16,7 +20,8 @@ export default function BudgetSummaries() {
                     key={budget.id}
                     budget={budget.name}
                     remaining={parseFloat(remaining.toFixed(2))}
-                    total={budget.budgetValue} />
+                    total={budget.budgetValue}
+                    onPress={() => props.navigateToBudgetDetails(budget.id)} />
             })}
         </View>
     )

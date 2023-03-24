@@ -38,7 +38,8 @@ export default function Home(props: Props) {
             {loading && <Text>Loading...</Text>}
             {!loading && <>
                 <DateNavigator />
-                <BudgetSummaries />
+                <BudgetSummaries
+                    navigateToBudgetDetails={navigateToBudgetDetails} />
                 {budgets.map(budget => {
                     return <SpendingList 
                         key={budget.id}

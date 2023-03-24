@@ -22,9 +22,11 @@ export default function SpendingList(props: SpendingListProps) {
         <View style={styles.container}>
             <View style={styles.header}>
                 <View style={Layouts.row}>
-                    <Text style={FontSizes.L}>{props.budget.name}</Text>
+                    <Text 
+                        style={FontSizes.L}
+                        onPress={() => props.onNavigateBudget(props.budget.id)}>{props.budget.name}</Text>
                     <Text
-                        style={FontSizes.L} 
+                        style={FontSizes.L}
                         onPress={() => props.onNew(props.budget)}
                         >
                         + New
