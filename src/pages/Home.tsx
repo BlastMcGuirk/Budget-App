@@ -21,33 +21,16 @@ export default function Home(props: Props) {
         dispatch(loadData());
     }, []);
 
-    const navigateToBudgetDetails = function(budgetId: number) {
-        props.navigation.navigate("BudgetDetails", {budgetId: budgetId});
-    }
-
-    const navigateToNew = function(budget: Budget) {
-        props.navigation.navigate("NewEntry", {budget, returnTo: 'Home', returnProps: undefined});
-    }
-
-    const navigateToItemDetails = function(budgetId: number, itemId: number) {
-        props.navigation.navigate("ItemDetails", { budgetId, itemId });
-    }
-
     return (
         <ScrollView contentContainerStyle={styles.container}>
             {loading && <Text>Loading...</Text>}
             {!loading && <>
                 <DateNavigator />
-                <BudgetSummaries
-                    navigateToBudgetDetails={navigateToBudgetDetails} />
+                <BudgetSummaries />
                 {budgets.map(budget => {
                     return <SpendingList 
                         key={budget.id}
-                        budget={budget}
-                        items={budget.items}
-                        onNew={navigateToNew}
-                        onNavigateBudget={navigateToBudgetDetails}
-                        onNavigateItem={navigateToItemDetails} />
+                        budget={budget} />
                 })}
             </>}
         </ScrollView>

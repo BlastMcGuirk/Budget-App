@@ -8,7 +8,6 @@ import { DeleteItemDialog } from '../components/DeleteItemDialog';
 import ListItem from '../components/ListItem';
 import { useItem } from '../hooks/useItem';
 import { Budget } from '../interfaces/Budget';
-import { Item } from '../interfaces/Item';
 import { RootState } from '../redux/store';
 import { FontSizes } from '../styles/global';
 
@@ -22,10 +21,8 @@ export default function BudgetDetails(props: Props) {
     const { budgets, loading } = useSelector((state: RootState) => state.budgets);
     const { budgetId } = props.route.params;
 
-    const { budget, remaining } = useMemo(() => {
-        const b = budgets.find(b => b.id === budgetId)!;
-        const sum = b.items.reduce((acc, cur) => acc + cur.amount, 0);
-        return {budget: b, remaining: b.budgetValue - sum};
+    const budget = useMemo(() => {
+        return budgets.find(b => b.id === budgetId)!;
     }, [budgets, budgetId]);
 
     const { item, setItem, clearItem } = useItem();
@@ -42,7 +39,7 @@ export default function BudgetDetails(props: Props) {
         <>
         <ScrollView key={budget.id} contentContainerStyle={styles.container}>
             <View style={styles.header}>
-                <BudgetSummary budget={budget.name} remaining={parseFloat(remaining.toFixed(2))} total={budget.budgetValue} />
+                <BudgetSummary budget={budget} />
                 <Text
                     style={[styles.new, FontSizes.S]}
                     onPress={() => navigateToNew(budget)}
