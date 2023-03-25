@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useMemo } from 'react';
 import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../../App';
 import { Budget } from '../interfaces/Budget';
 import { FontSizes } from '../styles/global';
 
@@ -10,7 +10,7 @@ interface BudgetSummaryProps {
     budget: Budget;
 }
 
-export default function BudgetSummary(props: BudgetSummaryProps) {
+export function BudgetSummary(props: BudgetSummaryProps) {
     const { budget } = props;
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 

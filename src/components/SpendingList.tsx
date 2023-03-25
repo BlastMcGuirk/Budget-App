@@ -2,19 +2,19 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../../App';
 import { useDialogContext } from '../hooks/useDialogContext';
 import { Budget } from '../interfaces/Budget';
 import { Item } from '../interfaces/Item';
 import { FontSizes, Layouts } from '../styles/global';
 import { DeleteItemDialog } from './DeleteItemDialog';
-import ListItem from './ListItem';
+import { ListItem } from './ListItem';
 
 export interface SpendingListProps {
     budget: Budget;
 }
 
-export default function SpendingList(props: SpendingListProps) {
+export function SpendingList(props: SpendingListProps) {
     const { budget } = props;
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     

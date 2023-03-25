@@ -4,10 +4,10 @@ import React, { useMemo } from 'react';
 import { View, ScrollView, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useSelector } from 'react-redux';
-import { RootStackParamList } from '../App';
-import BudgetSummary from '../components/BudgetSummary';
+import { RootStackParamList } from '../../App';
+import { BudgetSummary } from '../components/BudgetSummary';
 import { DeleteItemDialog } from '../components/DeleteItemDialog';
-import ListItem from '../components/ListItem';
+import { ListItem } from '../components/ListItem';
 import { useDialogContext } from '../hooks/useDialogContext';
 import { Budget } from '../interfaces/Budget';
 import { Item } from '../interfaces/Item';
@@ -20,7 +20,7 @@ export interface BudgetDetailsProps {
 
 type Props = NativeStackScreenProps<RootStackParamList, 'BudgetDetails'>;
 
-export default function BudgetDetails(props: Props) {
+export function BudgetDetails(props: Props) {
     const { budgets, loading } = useSelector((state: RootState) => state.budgets);
     const { budgetId } = props.route.params;
     const isInFocus = useIsFocused();

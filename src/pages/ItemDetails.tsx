@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../../App';
 import { FontSizes } from '../styles/global';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../redux/store';

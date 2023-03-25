@@ -9,7 +9,7 @@ export interface ListItemProps {
     onLongPress: () => void;
 }
 
-export default function ListItem(props: ListItemProps) {
+export function ListItem(props: ListItemProps) {
     const { id, name, amount, month, day, category } = props.item;
     const categoryValue = category !== 'null' ? category : '';
     return (

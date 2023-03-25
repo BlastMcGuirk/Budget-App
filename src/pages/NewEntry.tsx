@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState, useMemo } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../../App';
 import { LabeledInput } from '../controls/LabeledInput';
 import { Budget } from '../interfaces/Budget';
 import { useAppDispatch } from '../redux/store';
@@ -18,7 +18,7 @@ export interface NewEntryProps {
 
 type Props = NativeStackScreenProps<RootStackParamList, 'NewEntry'>;
 
-export default function NewEntry(props: Props) {
+export function NewEntry(props: Props) {
     const { budget, returnTo, returnProps } = props.route.params;
     const dispatch = useAppDispatch();
 

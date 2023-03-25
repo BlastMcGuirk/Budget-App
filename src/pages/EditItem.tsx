@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState, useMemo } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../../App';
 import { LabeledInput } from '../controls/LabeledInput';
 import { useAppDispatch } from '../redux/store';
 import { FontSizes } from '../styles/global';
@@ -15,7 +15,7 @@ export interface EditItemProps {
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EditItem'>;
 
-export default function EditItem(props: Props) {
+export function EditItem(props: Props) {
     const { item } = props.route.params;
     const dispatch = useAppDispatch();
 

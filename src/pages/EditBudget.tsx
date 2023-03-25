@@ -2,7 +2,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import React, { useState, useMemo } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../../App';
 import { LabeledInput } from '../controls/LabeledInput';
 import { useAppDispatch } from '../redux/store';
 import { FontSizes } from '../styles/global';
@@ -16,7 +16,7 @@ export interface EditBudgetProps {
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EditBudget'>;
 
-export default function EditBudget(props: Props) {
+export function EditBudget(props: Props) {
     const { budget } = props.route.params;
     const dispatch = useAppDispatch();
 

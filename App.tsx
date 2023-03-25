@@ -1,13 +1,14 @@
-import Home from './pages/Home';
+import { Home } from './src/pages/Home';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import BudgetDetails, { BudgetDetailsProps } from './pages/BudgetDetails';
-import NewEntry, { NewEntryProps } from './pages/NewEntry';
-import { ItemDetails, ItemDetailsProps } from './pages/ItemDetails';
-import { setupStore } from './redux/store'
+import { BudgetDetails, BudgetDetailsProps } from './src/pages/BudgetDetails';
+import { NewEntry, NewEntryProps } from './src/pages/NewEntry';
+import { ItemDetails, ItemDetailsProps } from './src/pages/ItemDetails';
+import { setupStore } from './src/redux/store'
 import { Provider } from 'react-redux'
-import EditItem, { EditItemProps } from './pages/EditItem';
-import EditBudget, { EditBudgetProps } from './pages/EditBudget';
+import { EditItem, EditItemProps } from './src/pages/EditItem';
+import { EditBudget, EditBudgetProps } from './src/pages/EditBudget';
+import { registerRootComponent } from 'expo';
 
 // Navigation
 export type RootStackParamList = {
@@ -21,7 +22,7 @@ export type RootStackParamList = {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-export default function App() {
+function App() {
   return (
     <Provider store={setupStore()}>
     <NavigationContainer>
@@ -50,3 +51,4 @@ export default function App() {
   );
 }
 
+registerRootComponent(App);
