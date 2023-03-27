@@ -1,12 +1,14 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { RootStackParamList } from '../../App';
 import { FontSizes } from '../styles/global';
 import { useSelector } from 'react-redux';
-import { RootState, useAppDispatch } from '../redux/store';
-import { useIsFocused } from '@react-navigation/native';
+import { RootState } from '../redux/store';
+import { Budget } from '../interfaces/Budget';
+import { Item } from '../interfaces/Item';
+import { useRefresh } from '../hooks/useRefresh';
 
 export interface ItemDetailsProps {
     budgetId: number;
@@ -16,25 +18,25 @@ export interface ItemDetailsProps {
 type Props = NativeStackScreenProps<RootStackParamList, 'ItemDetails'>;
 
 export function ItemDetails(props: Props) {
-    const dispatch = useAppDispatch();
     const { budgetId, itemId } = props.route.params;
     const budgets = useSelector((state: RootState) => state.budgets.budgets);
-    const isInFocus = useIsFocused();
+    const { refresh } = useRefresh();
 
-    const { budget, item } = useMemo(() => {
-        const budget = budgets.find(b => b.id === budgetId)!;
-        const item = budget.items.find(i => i.id === itemId)!;
-        return { budget, item };
-    }, [budgetId, itemId, isInFocus]);
+    const budget = budgets.find(b => b.id === budgetId)!;
+    const item = budget.items.find(i => i.id === itemId)!;
 
-
-    React.useEffect(() => {
+    useEffect(() => {
         props.navigation.setOptions({
             headerRight: () => 
-                <Icon style={[FontSizes.L]} name='edit' onPress={() => {props.navigation.navigate('EditItem', { item })}} />
+                <Icon 
+                    style={[FontSizes.L]}
+                    name='edit'
+                    onPress={() => {props.navigation.navigate('EditItem', { item, onSave: () => refresh() })}} />
         })
     }, [item]);
-
+    
+    if (!item || !budget) return <View style={styles.container}><Text>Loading...</Text></View>
+    
     const date = item.month + "/" + item.day + "/" + item.year;
     const categoryValue = item.category !== 'null' ? item.category : '';
 

@@ -12,12 +12,13 @@ import { updateExistingBudget } from '../redux/features/actions/budgets';
 
 export interface EditBudgetProps {
     budget: Budget;
+    onSave: () => void;
 }
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EditBudget'>;
 
 export function EditBudget(props: Props) {
-    const { budget } = props.route.params;
+    const { budget, onSave } = props.route.params;
     const dispatch = useAppDispatch();
 
     const dialogContext = useDialogContext<Budget>();
@@ -62,6 +63,7 @@ export function EditBudget(props: Props) {
                     name: name,
                     budgetValue: parseFloat(amount)
                 }));
+                onSave();
                 props.navigation.goBack();
             }} />
         </View>

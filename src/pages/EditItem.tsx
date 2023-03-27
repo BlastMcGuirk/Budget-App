@@ -11,12 +11,13 @@ import { updateExistingItem } from '../redux/features/actions/items';
 
 export interface EditItemProps {
     item: Item;
+    onSave: () => void;
 }
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EditItem'>;
 
 export function EditItem(props: Props) {
-    const { item } = props.route.params;
+    const { item, onSave } = props.route.params;
     const dispatch = useAppDispatch();
 
     // The name for the entry
@@ -71,6 +72,7 @@ export function EditItem(props: Props) {
                     year: yyyy,
                     category: category || undefined
                 }));
+                onSave();
                 props.navigation.goBack();
             }} />
         </View>

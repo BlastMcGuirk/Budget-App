@@ -9,6 +9,7 @@ import { BudgetSummary } from '../components/BudgetSummary';
 import { DeleteItemDialog } from '../components/DeleteItemDialog';
 import { ListItem } from '../components/ListItem';
 import { useDialogContext } from '../hooks/useDialogContext';
+import { useRefresh } from '../hooks/useRefresh';
 import { Budget } from '../interfaces/Budget';
 import { Item } from '../interfaces/Item';
 import { RootState } from '../redux/store';
@@ -23,16 +24,17 @@ type Props = NativeStackScreenProps<RootStackParamList, 'BudgetDetails'>;
 export function BudgetDetails(props: Props) {
     const { budgets, loading } = useSelector((state: RootState) => state.budgets);
     const { budgetId } = props.route.params;
-    const isInFocus = useIsFocused();
+    const { refresh } = useRefresh();
 
-    const budget = useMemo(() => {
-        return budgets.find(b => b.id === budgetId)!;
-    }, [budgets, budgetId, isInFocus]);
+    const budget = budgets.find(b => b.id === budgetId)!;
 
     React.useEffect(() => {
         props.navigation.setOptions({
             headerRight: () => 
-                <Icon style={[FontSizes.L]} name='edit' onPress={() => {props.navigation.navigate('EditBudget', { budget })}} />
+                <Icon 
+                    style={[FontSizes.L]}
+                    name='edit'
+                    onPress={() => {props.navigation.navigate('EditBudget', { budget, onSave: () => refresh() })}} />
         })
     }, [budget]);
 
